@@ -1,0 +1,13 @@
+{
+    "libs": ["webgl", "browser"],
+
+    "loadEagerly": [
+        "*/**.js"
+    ],
+    "plugins": {
+        "requirejs": {
+            "baseURL": "/bower_components/requirejs",
+            "paths": {}
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "SubdivisionJS",
+  "version": "0.1",
+  "authors": [
+    "Shazib Hussain <me@shazib.com>"
+  ],
+  "description": "Subdivision demonstration tool",
+  "main": "app.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "Subdivision",
+    "WebGL"
+  ],
+  "license": "MIT",
+  "homepage": "www.shazib.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gl-matrix": "~2.2.1",
+    "requirejs": "~2.1.18"
+  }
+}

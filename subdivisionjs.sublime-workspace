@@ -1,0 +1,1061 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"average",
+				"averageOfFacePointsAdjacent"
+			],
+			[
+				"face",
+				"facePoints ([])"
+			],
+			[
+				"edges",
+				"edgesFromFaceToEdgePoints ([])"
+			],
+			[
+				"edgepo",
+				"edgePoints ([])"
+			],
+			[
+				"fa",
+				"facePoints ([])"
+			],
+			[
+				"viewport",
+				"MAX_VIEWPORT_DIMS (num)"
+			],
+			[
+				"Mat",
+				"Matrix (fn/0)"
+			],
+			[
+				"r",
+				"Rotation (fn/2)"
+			],
+			[
+				"del",
+				"deltaY (num)"
+			],
+			[
+				"Ro",
+				"RotationX"
+			],
+			[
+				"delt",
+				"deltaY"
+			],
+			[
+				"rot",
+				"RotationY (fn/1)"
+			],
+			[
+				"Rotati",
+				"RotationX (fn/1)"
+			],
+			[
+				"new",
+				"newRotationMatrix (obj)"
+			],
+			[
+				"matri",
+				"multMatrix (fn/1)"
+			],
+			[
+				"on",
+				"onclick"
+			],
+			[
+				"wire",
+				"wireframeVectors ([])"
+			],
+			[
+				"modelCol",
+				"modelColors ([])"
+			],
+			[
+				"cubev",
+				"cubeVecIndexBuffer (?)"
+			],
+			[
+				"cube",
+				"cubeVecBuffer (?)"
+			],
+			[
+				"modelc",
+				"modelColor ([])"
+			],
+			[
+				"ve",
+				"vectorArray (fn/0)"
+			],
+			[
+				"num",
+				"numToDraw (num)"
+			],
+			[
+				"TRI",
+				"TRIANGLE_FAN (num)"
+			],
+			[
+				"vertexin",
+				"vertexIndicesForFacesNew ([])"
+			],
+			[
+				"mesh",
+				"meshCube"
+			],
+			[
+				"cun",
+				"cubeVertexIndices ([])"
+			],
+			[
+				"meshC",
+				"meshCubeC (obj)"
+			],
+			[
+				"vert",
+				"vertices ([])"
+			],
+			[
+				"vertex",
+				"vertexPositionAttribute (?)"
+			],
+			[
+				"ena",
+				"enableVertexAttribArray (?)"
+			],
+			[
+				"s",
+				"squareVerticesBuffer (?)"
+			],
+			[
+				"vertexNew",
+				"vertexNewPos"
+			],
+			[
+				"vertin",
+				"vertexIndiciesForFaceNew (?)"
+			],
+			[
+				"verti",
+				"vertexIndiciesForFacesNew ([])"
+			],
+			[
+				"edge",
+				"edgeIndicesShared ([])"
+			],
+			[
+				"numberofed",
+				"numberOfEdgesOriginal (num)"
+			],
+			[
+				"numberofver",
+				"numberOfVerticesOriginal (num)"
+			],
+			[
+				"edgein",
+				"edgeIndicesShared ([])"
+			],
+			[
+				"vetre",
+				"vertexOriginal (?)"
+			],
+			[
+				"verte",
+				"vertexIndex (num)"
+			],
+			[
+				"facePo",
+				"facePoints ([])"
+			],
+			[
+				"edgeP",
+				"edgePoints ([])"
+			],
+			[
+				"aver",
+				"averageofEdgeMidpointsAdjacent (obj)"
+			],
+			[
+				"averageofed",
+				"averageofEdgeMidpointsAdjacent (obj)"
+			],
+			[
+				"numberof",
+				"numberOfEdgesAdjacent (?)"
+			],
+			[
+				"edgeD",
+				"edgeMidPoint (?)"
+			],
+			[
+				"edgeInde",
+				"edgeIndex (?)"
+			],
+			[
+				"ed",
+				"edgeFromFacePointtoEdgePoint ([])"
+			],
+			[
+				"number",
+				"numberOfVerticesOriginal (num)"
+			],
+			[
+				"numb",
+				"numberofVerticiesInFace (?)"
+			],
+			[
+				"n",
+				"numberofVerticiesInFace (?)"
+			],
+			[
+				"vertexint",
+				"vertexIndexNext (?)"
+			],
+			[
+				"po",
+				"positions (?)"
+			],
+			[
+				"ver",
+				"vertexIndicesForFace (?)"
+			],
+			[
+				"divi",
+				"divideScalar"
+			],
+			[
+				"over",
+				"overwriteWith (fn/1)"
+			],
+			[
+				"sqrt",
+				"sqrt (fn/0)"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"e",
+				"elements"
+			],
+			[
+				"cre",
+				"create"
+			],
+			[
+				"c",
+				"create (fn/1)"
+			],
+			[
+				"getc",
+				"getContext (fn/1)"
+			],
+			[
+				"make",
+				"makeOrtho (fn/6)"
+			],
+			[
+				"f",
+				"for	for (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"ma",
+				"makeFacePoint"
+			],
+			[
+				"attach",
+				"gl.attachShader(${0:WebGLProgram_program}, WebGLShader_shader)	GLCompletion"
+			],
+			[
+				"powe",
+				"powerupChance"
+			],
+			[
+				"tickco",
+				"tickCountFire"
+			],
+			[
+				"collisio",
+				"collisionHelper"
+			],
+			[
+				"colliso",
+				"collisionHelper"
+			],
+			[
+				"sprt",
+				"spriteSheetData"
+			],
+			[
+				"spriteShe",
+				"spriteSheetData"
+			],
+			[
+				"power",
+				"powerup"
+			],
+			[
+				"generate",
+				"generatePowerup"
+			],
+			[
+				"arra",
+				"arrayA"
+			],
+			[
+				"get",
+				"getNcols"
+			],
+			[
+				"prev",
+				"prev_seq"
+			],
+			[
+				"cus",
+				"cursorPos"
+			],
+			[
+				"new_",
+				"new_command"
+			],
+			[
+				"subl",
+				"sublime_plugin"
+			],
+			[
+				"line",
+				"line_conts"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "scripts/app.js",
+			"settings":
+			{
+				"buffer_size": 9602,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/mesh.js",
+			"settings":
+			{
+				"buffer_size": 17847,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "/**\n * vector.js\n * SubdivisionJS\n *\n * Created by shazib hussain on 07/06/2015\n * copyright (c) 2015 Shazib Hussain\n *\n * This class defines a 3D vector with x, y and z elements. \n */\n// Load dependancies\ndefine (\"vector\", [], function() {\n	\"use strict\";\n\n	// Class constructor\n	function Vector(x, y, z) {\n		// Confirm new keyword was used\n		if (!(this instanceof Vector)) {\n			throw new TypeError(\"Vector constructor cannot be called as a function\");\n		}\n		// Create vector\n		this.x = x;\n		this.y = y;\n		this.z = z;\n	}\n\n	// Generic public constructor\n	Vector.create = function(x, y, z) {\n		var vec = new Vector(x, y, z);\n		return vec;\n	}\n\n	Vector.prototype = {\n		// Repoint the constrctor for prototype redefine\n		constructor: Vector,\n\n		// Add a vector to this vector\n		add: function(other) {\n			this.x += other.x;\n			this.y += other.y;\n			this.z += other.z;\n\n			return this;\n		},\n\n		// Set all elements to zero\n		clear: function() {\n			this.x = 0;\n			this.y = 0;\n			this.z = 0;\n\n			return this;\n		},\n\n		// Copy (return new instance of this vector) \n		clone: function() {\n			return new Vector(this.x, this.y, this.z);\n		},\n\n		// Cross product\n		crossProduct: function(other) {\n			return this.overwriteWithXYZ (\n		    this.y * other.y - other.y * this.z,\n        other.x * this.z - this.x * other.z,\n        this.x * other.y - other.x * this.y\n			);\n		},\n\n		// Divide by scalar\n		divideScalar: function(scalar) {\n			this.x /= scalar;\n			this.y /= scalar;\n			this.z /= scalar;\n			\n			return this;\n		},\n\n		// Dot product\n		dotProduct: function(other) {\n			 return (this.x * other.x + this.y + other.y + this.z + other.z);\n		},\n	\n		// Magnitude - Returns scalar\n		magnitude: function() {\n	    return Math.sqrt(\n	    	Math.pow(this.x, 2) + \n	    	Math.pow(this.y, 2) +\n	    	Math.pow(this.z, 2)\n	    );\n		},\n\n		// Multiply scalar\n		multiplyScalar: function(scalar) {\n			this.x *= scalar;\n			this.y *= scalar;\n			this.z *= scalar;\n\n			return this;\n		},\n\n		// Normalise\n		normalise: function() {\n			return this.divideScaler(this.magnitude());\n		},\n\n		// Overwrite this vector object with another\n		overwriteWith: function(other) {\n			this.x = other.x;\n			this.y = other.y;\n			this.z = other.z;\n\n			return this;\n		},\n\n		// Overwrite with specific values\n		overwriteWithXYZ: function(x, y, z) {\n			this.x = x;\n			this.y = y;\n			this.z = z;\n\n			return this;\n		},\n\n		// Subtract\n		suctract: function(other) {\n        this.x -= other.x;\n        this.y -= other.y;\n        this.z -= other.z;\n\n        return this;\n    },\n\n    // Get element array\n    getElements: function() { \n        return [this.x, this.y, this.z];\n    },\n\n	}; // End prototype\n\n	// Return reference to constructor\n	return Vector;\n\n}); // End define",
+			"file": "scripts/vector.js",
+			"file_size": 2854,
+			"file_write_time": 130781857425338085,
+			"settings":
+			{
+				"buffer_size": 2709,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\n\n\nfunction start() {\n  console.log(\"start\");\n}\n\n\n\n\nrequirejs.config({\n    paths: {\n    \"glm\": \"../bower_components/gl-matrix/dist/gl-matrix\",\n    \"DAT\": \"../bower_components/dat-gui/build/dat.gui\",\n    \"domReady\": \"../bower_components/domready/ready.min\",\n    \"extensions\": \"extensions\",\n    \"vector\": \"vector\",\n    \"vertex\": \"vertex\",\n    \"edge\": \"edge\",\n    \"face\": \"face\",\n    \"mesh\": \"mesh\",\n    \"models\": \"models\",\n    \"helper\": \"glhelper\"\n    }\n});\n\n// globals objects\nvar canvas;\nvar gl;\n\n// Model data buffers\nvar modelVecBuffer;\nvar modelVecColorBuffer;\nvar modelVecIndexBuffer;\nvar modelWireBuffer;\nvar modelWireColorBuffer;\n// Model data counts\nvar numElements;\nvar numVectors;\n// Shader stuff\nvar shaderProgram;\nvar vertexPositionAttribute;\nvar vertexColorAttribute;\n// keeping track of things\nvar subCount = 0;\nvar modelRotationMatrix; \nvar mouseDown = false;\nvar lastMouseX = null;\nvar lastMouseY = null;\n\nvar mvMatrix;\nvar perspectiveMatrix;\n\nrequire(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'], \n    function(domReady, Extension, Models, Mesh, Helper, glm) {\n\n    domReady(function() {\n        // This function is called once the DOM is ready\n        console.log(\"dom ready\");\n\n      // Get canvas\n      canvas = document.getElementById(\"glcanvas\");\n      // init gl\n      //gl = Helper.initCanvas(canvas, gl);\n      initWebGL(canvas);\n\n      if (gl) {\n\n        console.log(\"gl init\");\n        gl.clearColor(0.31, 0.58, 0.8, 1.0);  // Clear to black, fully opaque\n        gl.clearDepth(1.0);                 // Clear everything\n        gl.enable(gl.DEPTH_TEST);           // Enable depth testing\n        gl.depthFunc(gl.LEQUAL);            // Near things obscure far things\n\n        // Init the shaders\n        initShaders();\n\n        // initialise the mesh and various data buffers\n        initBuffers(subCount);\n\n        // Draw\n        setInterval(drawScene, 15);\n      }\n\n    });\n\nfunction initWebGL(canvas) {\n  gl = null;\n\n  try {\n    // Try to grab the standard context. Fallback to experimental\n    gl = canvas.getContext(\"webgl\") || canvas.getContext(\"experimental-webgl\");\n  }\n  catch(e) {}\n\n  // Give up if no context\n  if (!gl) {\n    alert(\"Unable to initialise WebGL. Your browser may not support it\");\n    gl = null;\n  }\n\n}\n\n// Get shaders from DOM\nfunction getShader(gl, id) {\n  var shaderScript, theSource, currentChild, shader;\n\n  // Find the element with the specified ID and read source\n  shaderScript = document.getElementById(id);\n\n  if (!shaderScript) {\n    return null;\n  }\n\n  theSource = \"\";\n  currentChild = shaderScript.firstChild;\n\n  while (currentChild) {\n    if (currentChild.nodeType == currentChild.TEXT_NODE) {\n      theSource += currentChild.textContent;\n    }\n\n    currentChild = currentChild.nextSibling;\n  }\n\n  // Create the shader by checking its type\n  if (shaderScript.type == \"x-shader/x-fragment\") {\n    shader = gl.createShader(gl.FRAGMENT_SHADER);\n  } else if (shaderScript.type == \"x-shader/x-vertex\") {\n    shader = gl.createShader(gl.VERTEX_SHADER);\n  } else {\n    // Unknown shader type\n    return null;\n  }\n\n  // Pass the source to the shader and compile it\n  gl.shaderSource(shader, theSource);\n\n  // Compile the shader program\n  gl.compileShader(shader);\n\n  // Check compilation\n  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n    alert(\"An error occured compiling shaders: \" + gl.getShaderInfoLog(shader));\n    return null;\n  }\n  return shader;\n}\n\n// Init the shader program\nfunction initShaders() {\n    // var fragShader = Helper.loadShaderFromDOM(gl, \"shader-fs\");\n    // var vertShader = Helper.loadShaderFromDOM(gl, \"shader-vs\");\n  // Get the shaders\n  var fragShader = getShader(gl, \"shader-fs\");\n  var vertShader = getShader(gl, \"shader-vs\");\n\n\n    // Create the shader program\n    shaderProgram = gl.createProgram();\n\n    // Attach shaders to program\n    gl.attachShader(shaderProgram, vertShader);\n    gl.attachShader(shaderProgram, fragShader);\n\n    // Link program\n    gl.linkProgram(shaderProgram);\n\n    // Check failure\n    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {\n        alert(\"Unable to initalise the shader program\");\n    }\n\n    // Tell gl to use this program\n    gl.useProgram(shaderProgram);\n\n  // Enable shader attributes\n  vertexPositionAttribute = gl.getAttribLocation(shaderProgram, \"aVertexPosition\");\n  gl.enableVertexAttribArray(vertexPositionAttribute);\n\n  vertexColorAttribute = gl.getAttribLocation(shaderProgram, \"aVertexColor\");\n  gl.enableVertexAttribArray(vertexColorAttribute);\n}\n\n// Creating the buffers to contain the vertices\nfunction initBuffers(count) {\n\n  var meshCube = Models.cube();\n\n  for (var i = 0; i < count; i++) {\n    meshCube = meshCube.subdivide();\n  }\n\n  // vertices of the cube\n  var vertices = [];\n  vertices = meshCube.vectorArray();\n\n  // get the index array\n  var vectorIndex = [];\n  vectorIndex = meshCube.elementArray();\n\n  // number of indexes\n  numElements = vectorIndex.length;\n\n  // Wireframe edges\n  var wireframeVectors = [];\n  wireframeVectors = meshCube.wireframeVertices();\n\n  // Number of vertices in wireframe\n  numVectors = wireframeVectors.length/3;\n\n  // console.log(wireframeVectors.length);\n  // console.log(meshCube.edges.length * 2);\n\n  // Black \n  var blackColor = [0.0, 0.0, 0.0, 1.0];\n  // Object color\n  var modelColor = [0.4,  0.8, 0.59, 1.0];\n\n  var wireframeColors = [];\n  for (var c = 0; c < numVectors; c++) {\n    wireframeColors.append(blackColor);\n  }\n  var modelColors = [];\n  for (var c = 0; c < meshCube.vertices.length; c++) {\n    modelColors.append(modelColor);\n  }\n\n  // cubeVecBuffer\n  cubeVecBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);\n\n  // Element Array\n  cubeVecIndexBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);\n  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(vectorIndex), gl.STATIC_DRAW);\n\n  // Model colour buffer\n  cubeVecColorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(modelColors), gl.STATIC_DRAW);\n\n  // wireframe buffer\n  cubeWireBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeVectors), gl.STATIC_DRAW);\n\n  // Wireframe colors buffer\n  cubeWireColorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeColors), gl.STATIC_DRAW);\n\n}\n\n\n\nvar firstRun = false;\n\n// Draw the scene\nfunction drawScene() {\n\n\n    // clear everything\n    gl.clear(gl.COLOR_BUFFER_BIT| gl.DEPTH_BUFFER_BIT);\n  perspectiveMatrix = glm.mat4.create();\n    // Create perspective\n    glm.mat4.perspective(perspectiveMatrix, Math.degToRad(45.0), canvas.width/canvas.height, 0.1, 100.0);\n\n    // Perform a translation on the model view matrix\n    if (!firstRun) {\n    mvMatrix = glm.mat4.create();\n\n        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, -0.0, -6.0]);\n        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);\n        firstRun = true;\n   \n    }\n\n    setMatrixUniforms();\n\n  // Bind vectors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);\n  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexPositionAttribute)\n  // Bind colors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);\n  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexColorAttribute)\n  // Bind element array\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);\n  // Draw\n  gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_SHORT, 0);\n\n  // Bind edge vectors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);\n  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexPositionAttribute)\n  // Bind colors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);\n  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexColorAttribute)\n  // Draw lines\n  gl.drawArrays(gl.LINES, 0, numVectors)\n\n  \n}\n\nfunction setMatrixUniforms() {\n  // set the perspective matrix\n  var pUniform = gl.getUniformLocation(shaderProgram, \"uPMatrix\");\n  gl.uniformMatrix4fv(pUniform, false, new Float32Array(mvMatrix));\n\n  // set the model view matrix\n  var mvUniform = gl.getUniformLocation(shaderProgram, \"uMVMatrix\");\n  gl.uniformMatrix4fv(mvUniform, false, new Float32Array(perspectiveMatrix));\n\n}\n\n});",
+			"settings":
+			{
+				"buffer_size": 8633,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/extensions.js",
+			"settings":
+			{
+				"buffer_size": 404,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 1479,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Enable Package"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"pretty",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"jso",
+				"Set Syntax: JSON"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"preferen",
+				"Preferences: Settings - User"
+			],
+			[
+				"prefern",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"preferned",
+				"Preferences: Javatar Settings – Default"
+			],
+			[
+				"prefer",
+				"Preferences: Settings - Default"
+			],
+			[
+				"prefere",
+				"Preferences: Settings - User"
+			]
+		],
+		"width": 514.0
+	},
+	"console":
+	{
+		"height": 279.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,sys; exec(\"if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')\"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"sublime.log_commands(True)",
+			"sublime.log_input(True)",
+			";",
+			"sublime.log_commands(True)",
+			"view.run_command('example')",
+			";",
+			"view.run_command('example')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Shazib/Desktop/SubdivisionJS",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components/domready",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components/domready/src",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts"
+	],
+	"file_history":
+	[
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/glhelper.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy - Copy (3)/sylvester.src.js",
+		"/C/Users/Shazib/Desktop/sylvester.js",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/sylvester.js",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/subdivisionjs.sublime-workspace",
+		"/C/Users/Shazib/Desktop/untitled.obj",
+		"/C/Users/Shazib/Desktop/ThesisCube/glUtils.js",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.512/sylvester.js",
+		"/C/Users/Shazib/Desktop/ThesisCube/temp.js",
+		"/C/Users/Shazib/Desktop/jabtunes.com-1433449516435.log",
+		"/D/Downloads/Person.of.Interest.S04E20.1080p.HDTV.X264-DIMENSION/person.of.interest.420.1080-dimension.nfo",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/glUtils.js",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.953/edge.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.650/face.cpp",
+		"/C/Users/Shazib/Desktop/random.cpp",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/.tern-project",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/node_modules/tern/defs/webgl.json",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/node_modules/tern/defs/browser.json",
+		"/C/Users/Shazib/Desktop/webgl.def.ts",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/node_modules/tern/lib/def.js",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/node_modules/tern/bin/from_ts",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/index.html",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/model.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/sylvester.src.js",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.965/sylvester.src.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/sylvester.js",
+		"/C/Users/Shazib/Desktop/temp.js",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.690/sylvester.js",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.077/sylvester.js",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/script.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy/main.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/scripts/helper/model.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/scripts/helper/glUtils.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/scripts/main.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/index.html",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/require.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/model.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/script.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/thesis.sublime-project",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/.tern-port",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/glUtils.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/sylvester.js",
+		"/C/Users/Shazib/Desktop/Thesis - 2D/thesis.sublime-workspace",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/D/Downloads/Orphan.Black.S03E05.720p.HDTV.x264-KILLERS/orphan.black.s03e05.720p.hdtv.x264-killers.nfo",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.669/private.h",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.937/face.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.735/shell.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.154/brep.h",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.116/vertex.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.358/private.h",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.730/edge.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.216/contour.cpp",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.824/brep.h",
+		"/C/Users/Shazib/Desktop/Thesis/glUtils.js",
+		"/C/Users/Shazib/Desktop/Thesis/model.js",
+		"/C/Users/Shazib/Desktop/Thesis/script.js",
+		"/C/Users/Shazib/Desktop/Thesis/sylvester.js",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/print.cpp",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/object.cpp",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/loop.h",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/loop.cpp",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/data/cylinder.obj",
+		"/C/Users/Shazib/Dropbox/MSc/@thesis/Loop/alphas.nb",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.053/asuds2.off",
+		"/C/Users/Shazib/Desktop/test.tex",
+		"/C/Users/Shazib/Desktop/MSC MISC/ConsoleApplication1/ConsoleApplication1/main.cpp",
+		"/C/Users/Shazib/Desktop/Kernel6/readme.txt",
+		"/C/Users/Shazib/Desktop/Kernel4/readme.txt",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.320/README_AJBREC_v1.21d.txt",
+		"/C/Users/Shazib/Desktop/Kernel5/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel4/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel3/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel2/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel1/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel6/template.cu",
+		"/C/Users/Shazib/Desktop/Kernel5/template_cpu.cpp",
+		"/C/Users/Shazib/Desktop/Kernel4/jacobi.dat",
+		"/C/Users/Shazib/Dropbox/MSc/High Performance Computing/Assignment/HPCSerial/HPCSerial/Serial.c",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.174/kernel.cu",
+		"/C/Users/Shazib/Downloads/01-hello_world(2).cu",
+		"/C/Users/Shazib/Downloads/02-matrix_add.cu",
+		"/C/Users/Shazib/Downloads/03-shared_memory.cu",
+		"/C/Users/Shazib/Downloads/02-coalescing (1).cu",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DRa0.843/solution/main.cu",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DRa0.705/solution/definitions.cuh",
+		"/C/Users/Shazib/Desktop/Kernel3/jacobi.dat",
+		"/C/Users/Shazib/Desktop/Kernel2 - Copy/jacobi.dat",
+		"/C/Users/Shazib/Desktop/Kernel2/jacobi.dat",
+		"/C/Users/Shazib/Desktop/Kernel1/template/jacobi.dat",
+		"/C/Users/Shazib/Desktop/Kernel1/template/template.cu",
+		"/C/Program Files/NVIDIA Corporation/CUDA Samples/1_Utilities/deviceQueryDrv/readme.txt",
+		"/C/Program Files/NVIDIA Corporation/CUDA Samples/1_Utilities/deviceQuery/readme.txt",
+		"/C/Users/Shazib/Desktop/template/jacobi.dat",
+		"/C/Program Files/NVIDIA Corporation/Installer2/CUDASamples_7.0.{5AAD6771-FCE5-4ACB-B53F-E38BA41E5104}/0_Simple/matrixMulDrv/matrixMul_kernel.cu",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.927/readme.txt",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DRa0.399/solution/kernel.cu",
+		"/C/Users/Shazib/Desktop/ts.lua",
+		"/D/Projects/GroupMe Bot/tv_command/tv_command.h",
+		"/D/Projects/GroupMe Bot/tv_command/tv_command.cpp",
+		"/C/Users/Shazib/Dropbox/MSc/Cloud Computing/Lecture Notes/cranfield-cloud-latest.txt",
+		"/C/Users/Shazib/Desktop/id_rsa.pub",
+		"/D/My Pictures/Random/Stuff/2013/JamesDopplegangerTroll2013.txt",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.767/answer.c",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DRa0.633/README",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.850/02-coalescing.cu",
+		"/C/Users/Shazib/Desktop/config.json",
+		"/C/Users/Shazib/Downloads/02-coalescing.cu",
+		"/C/Users/Shazib/Desktop/nostalgia.lua",
+		"/C/Users/Shazib/Desktop/ts.lua.old",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/User/Pretty JSON.sublime-settings",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/Pretty JSON/Pretty JSON.sublime-settings",
+		"/C/Users/Shazib/Desktop/latex/achemso-demo.bbl",
+		"/C/Users/Shazib/Desktop/latex/achemso-demo.aux",
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.510/README_AJBREC_v1.21d.txt",
+		"/C/Users/Shazib/Desktop/New folder (2)/Ver.txt",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/playerdata/ec979b6b-fc3f-4711-ad27-73859e163be6.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/forcedchunks.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/labyrinth.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/multipart.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/level.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_0_-4.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_-1_-3.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_-2_0.dat",
+		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/settings.cfg",
+		"/E/config.txt",
+		"/C/Users/Shazib/Desktop/crash-2015-03-16_02.18.01-server.txt"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			".faceindic",
+			"console",
+			"console.",
+			"objects",
+			"frag",
+			"0",
+			"vertexpo",
+			"averte",
+			"cons",
+			"dup",
+			"x:",
+			"x ",
+			":x",
+			"Matrix.I",
+			"console.lo",
+			"console.log",
+			"this",
+			"console.log",
+			"x",
+			"cube",
+			"            \n",
+			"console.l",
+			"cons",
+			"conseol.log",
+			" d:",
+			" c:",
+			" b:",
+			" z:",
+			" y:",
+			" z:",
+			" y:",
+			" d:",
+			" c:",
+			" b:",
+			" z:",
+			" y:",
+			" c:",
+			" z:",
+			" y:",
+			"color",
+			"verticesnew",
+			"manyfrompos",
+			"edgepoints",
+			"matrix",
+			"auto_complete",
+			"selector",
+			"mallo",
+			"dgrid",
+			"include",
+			"remainingaliens = ",
+			"remainingaliens = -1",
+			"powerupactive = false",
+			"tickcountmov",
+			"print",
+			"firerate",
+			"firing = false",
+			"endwave",
+			"firing = true",
+			"firing = false",
+			"powerup.type",
+			"collisionh",
+			"\"alienmi",
+			"=",
+			"anchorx",
+			"missiles[i].ach",
+			"moveboss",
+			"firerate",
+			"powerups",
+			"0.53139",
+			"offse",
+			"max",
+			"MAX",
+			"status",
+			"UP ",
+			"save",
+			"tryparse",
+			"getarray",
+			"getmatrix",
+			"W",
+			"moving ",
+			"remainingaliens",
+			"print",
+			"dd",
+			"cin",
+			" cout",
+			" endl",
+			"endl",
+			"cout",
+			"self",
+			"bold",
+			"font",
+			"ctrl+alt+left",
+			"ctrl+alt+",
+			"ctrl+t",
+			"ctrl+shift+left",
+			"ctrl+left",
+			"ctrl+alt",
+			"enter",
+			"self.view",
+			"edit",
+			"bob",
+			"icon",
+			"ruler",
+			"true"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"model",
+			"",
+			"std::cin",
+			"std::cout",
+			" std::endl",
+			"std::endl",
+			"std::cout",
+			"view",
+			""
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "scripts/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9602,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6587,
+								6587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2087.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "scripts/mesh.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17847,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1335,
+								1335
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "scripts/vector.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								517,
+								517
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8633,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1910,
+								1910
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1407.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "scripts/extensions.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								378,
+								366
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1479,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								208,
+								208
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 98.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.tern_arghint":
+	{
+		"height": 102.0
+	},
+	"pinned_build_system": "",
+	"project": "subdivisionjs.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"sylvester.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 190.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

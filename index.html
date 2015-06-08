@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>WebGL Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script data-main="scripts/app" src="bower_components/requirejs/require.js"></script>
+
+
+    <!-- Fragment shader program -->
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+      varying lowp vec4 vColor;
+      
+      void main(void) {
+        gl_FragColor = vColor;
+      }
+    </script>
+    
+    <!-- Vertex shader program -->
+    
+    <script id="shader-vs" type="x-shader/x-vertex">
+      attribute vec3 aVertexPosition;
+      attribute vec4 aVertexColor;
+    
+      uniform mat4 uMVMatrix;
+      uniform mat4 uPMatrix;
+      
+      varying lowp vec4 vColor;
+    
+      void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aVertexColor;
+        gl_PointSize = 3.0;
+      }
+    </script>
+
+
+  </head>
+  
+  <body>
+    <canvas id="glcanvas" width="840" height="680">
+      Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+    </canvas>
+  </br>
+    <input type ="range" id="myRange" min="1" max="5"> Angle Of Rotation </input> </br>
+    <input type="checkbox" id="x"> X Axis</input>
+    <input type="checkbox" id="y"> Y Axis</input>
+    <input type="checkbox" id="z"> Z Axis</input>
+    </br></br>
+    <b> Subdivide </b>
+    <input type="button" value="Backward" id="back"></input>
+    <input type="button" value="Forward" id="sub"></input>
+  </body>
+</html>
