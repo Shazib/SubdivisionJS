@@ -1,7 +1,8 @@
 {
-    "libs": ["webgl", "browser"],
+    "libs": ["webgl"],
 
     "loadEagerly": [
+        "scripts/app.js",
         "*/**.js"
     ],
     "plugins": {

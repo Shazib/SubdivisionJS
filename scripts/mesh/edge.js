@@ -44,6 +44,46 @@
  			return returnValue;
  		},
 
+ 		// Get the midpoint of an edge (using endpoints and faces) 
+ 		getEdgePoint: function(mesh) {
+ 			// Number of faces for edge (2)
+ 			var numOfFacesAdjacent = this.faceIndices.length;
+
+ 			// Temp var to keep track
+ 			var sumOfVertPositions = new Vector();
+ 			var averageOfVertPositions = new Vector();
+ 			sumOfVertPositions.clear();
+ 			averageOfVertPositions.clear();
+
+ 			// For every vertex index of the edge
+ 			for (var vi = 0; vi < this.vertexIndices.length; vi++) {
+ 				var vertexIndex = this.vertexIndices[vi];
+ 				var vertexVector = mesh.vertices[vertexIndex].vec;
+
+ 				// Add them
+ 				sumOfVertPositions.add(vertexVector);
+ 			}
+
+ 			// For each face of the edge
+ 			for (var fi = 0; fi < this.faceIndices.length; fi++) {
+ 				// Face index
+ 				var faceIndex = this.faceIndices[fi];
+ 				// Face point
+ 				var facePoint = mesh.facePoints[faceIndex];
+ 				// Add face point
+ 				sumOfVertPositions.add(facePoint);
+ 			}
+
+ 			/// Number of verts that were added
+ 			var numVerts = this.vertexIndices.length + this.faceIndices.length;
+
+ 			// Get average
+ 			averageOfVertPositions.overwriteWith(sumOfVertPositions)
+ 														.divideScalar(numVerts);
+
+
+ 		},
+
  		// Return the vectors of the vertices for this edge in the main array
  		vertexPositions: function(mesh) {
  			var returnValue = [

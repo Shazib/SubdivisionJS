@@ -19,6 +19,8 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 	// vertices = list of vertexes 
 	// vertexIndicesForFaces = 2d array assigning the vertexes to faces
 	function Mesh(name, vertices, vertexIndicesForFaces) {
+
+        console.log("test");
 		// Name of mesh
 		this.name = name;
 		// Array of mesh vertices
@@ -27,6 +29,10 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 		this.faces = [];
 		// Array of mesh edges
 		this.edges = [];
+        // Array of face points (helper)
+        this.facePoints;
+
+        console.log("starting");
 
 		var vertexIndicesMinMaxToEdgeIndexLoopup = [];
 		// Generate mesh faces
@@ -39,7 +45,6 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 
 			// number of vertices in face
 			var numVertsInFace = vertexIndicesForFace.length;
-
 			// For each vertex in the face
 			for (var vi = 0; vi < numVertsInFace; vi++) {
 				// Get the first two vertex indices of the face
@@ -56,6 +61,7 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 				// This face belongs to the vertex as well as 
 				// the vertex belonging to this face. 
 				// So now update the vertex's index lists
+
 				vert.faceIndices.push(f);
 
 				// These two vertices make an edge also,
@@ -156,44 +162,14 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                 facePoints.push(this.faces[f].getFacePoint(this).clone());
 
             } // End of for each face
-          //  console.log(facePoints);
+            this.facePoints = facePoints;
 
             // For each edge (generate edge points)
             for (var e = 0; e < numberOfEdgesOriginal; e++) {
                 var edge = this.edges[e];
 
-                sumOfVertexPositions.clear();
-
-                // For all vertex indexes of edge
-                for (var vi = 0; vi < edge.vertexIndices.length; vi++) {
-                    // Get the Coord from the vertex from global
-                    var vertexIndex = edge.vertexIndices[vi];
-                    var vertexPos = this.vertices[vertexIndex].vec;
-                    // Add up
-                    sumOfVertexPositions.add(vertexPos);
-                }
-
-                // Number of faces touching edge
-                var numberOfFacesAdjacent = edge.faceIndices.length;
-
-                // For each face of edge
-                for (var fi = 0; fi < numberOfFacesAdjacent; fi++) {
-                    // Get the global face index of the adjacent face
-                    var faceIndex = edge.faceIndices[fi];
-                    // Get the newly created face point for that face 
-                    var facePoint = facePoints[faceIndex];
-                    // Add face point
-                    sumOfVertexPositions.add(facePoint);
-                }
-                // Number of vertices summed
-                var numberOfVertices = edge.vertexIndices.length
-                    + numberOfFacesAdjacent;
-
-                averageOfVertexPositions.overwriteWith(sumOfVertexPositions)
-                    .divideScalar(numberOfVertices);
-
                 // Add edge point to new edge points array
-                edgePoints.push(averageOfVertexPositions.clone());
+                edgePoints.push(edge.edgePoint().clone());
             } // End for each edge
 
             // Generate new edges from face to edge points
@@ -261,7 +237,7 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                 // Get the average of all adjacent face points
                 var averageOfFacePointsAdjacent = 
                 sumOfVertexPositions.clone().divideScalar
-                (
+                ( 
                     numberOfFacesAdjacent
                 );
 
@@ -444,13 +420,35 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                 }
             }
             return vertices;
-        },
+        }
 
         // Doo Sabin subdivision method
-        doosabinSubdivide: function() {
+        // doosabinSubdivide: function() {
+        //     // Useful vars for iterating
+        //     var numfFaces = this.faces.length;
+        //     var numEdges = this.edges.length;
+        //     var numVertices = this.vertices.length;
 
 
-        }
+
+        //     // Face points
+        //     var facePoint = [];
+        //     for (var f = 0; f < numfFaces; f++) {
+        //         facePoints.push(this.faces[f].getFacePoint(this));
+        //     }
+
+        //     // For edges 
+        //     // Add edge popint
+        //     // Average of faces and neighbouring points
+        //     // Same as catmull
+        //     var edgePoints = [];
+        //     for  (var e = 0; e < numEdges; e++) {
+        //         edgePoints.push(this.edges[e].getEdgePoint(this));
+        //     }
+
+        //     // for every face
+        //         // for every edge
+        // }
 	} // End prototype
 
 	// Return reference to constructor

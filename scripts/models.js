@@ -86,8 +86,24 @@ define ("models", ["mesh", "vertex", "vector"], function(Mesh, Vertex, Vector) {
   	);   
   }
 
+  Models.cone = function() {
+    return new Mesh (
+      "Cone",
+      [
+        new Vertex(new Vector( 0.000000, -1.000000, -1.000000)),
+        new Vertex(new Vector( 0.866025, -1.000000,  0.500000)),
+        new Vertex(new Vector( 0.000000,  1.000000,  0.000000)),
+        new Vertex(new Vector(-0.866025, -1.000000,  0.500000))
+      ],
+
+      [
+        [2, 3, 4],
+        [1, 3, 2],
+        [4, 3, 1],
+        [1, 2, 4]
+      ]
+    );
+  }
+
   return Models;
-
-
-
  }); // End define

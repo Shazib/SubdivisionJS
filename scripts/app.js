@@ -168,7 +168,7 @@ function initShaders() {
 // Creating the buffers to contain the vertices
 function initBuffers(count) {
 
-  var meshCube = Models.cube();
+  var meshCube = Models.cone();
 
   for (var i = 0; i < count; i++) {
     meshCube = meshCube.catmullSubdivide();
