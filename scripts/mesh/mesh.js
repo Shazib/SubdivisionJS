@@ -154,7 +154,27 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
             // For every face (Generate face points)
             for (var f = 0; f < numberOfFacesOriginal; f++) {
                 facePoints.push(this.faces[f].getFacePoint(this).clone());
+              //   var face = this.faces[f];
+              //  // console.log(face.vertexIndices);
+              //   var numberOfVerticesInFace = face.vertexIndices.length;
+              //   sumOfVertexPositions.clear();
 
+              //   for (var vi = 0; vi < numberOfVerticesInFace; vi++)
+              //   {
+              //       var vertexIndex = face.vertexIndices[vi];
+              //       var vertexPos = this.vertices[vertexIndex].vec;
+              //       sumOfVertexPositions.add(vertexPos);
+              //   }
+              //  // console.log(sumOfVertexPositions);
+              //   averageOfVertexPositions.overwriteWith
+              //   (
+              //       sumOfVertexPositions
+              //   ).divideScalar
+              //   (
+              //       numberOfVerticesInFace
+              //   );
+              // //  console.log(averageOfVertexPositions)
+              //   facePoints.push(averageOfVertexPositions.clone());
             } // End of for each face
           //  console.log(facePoints);
 
@@ -196,6 +216,8 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                 edgePoints.push(averageOfVertexPositions.clone());
             } // End for each edge
 
+           // console.log(edgePoints);
+
             // Generate new edges from face to edge points
             // For each face 
             var edgesFromFaceToEdgePoints = [];
@@ -229,6 +251,7 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                     edgesFromFaceToEdgePoints.push(edgeFromFacePointToEdgePoint);
                 }
             } // end for each face
+           // console.log(edgesFromFaceToEdgePoints);
 
             // Generate new original vertex to edge point edges
             var edgesFromVerticesToEdgePoints = []; // new edges from vertices to edge points (splitting in 2)
@@ -239,15 +262,17 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
             for (var v = 0; v < this.vertices.length; v++) {
                 // get the vertex
                 var vertex = this.vertices[v];
+                console.log(vertex);
                 // Get the vertex vector
                 var vertexPos = vertex.vec;
+             //   console.log(vertexPos);
                 // Edges and faces adjacent to vertex
                 // Are these always the same???
                 var numberOfFacesAdjacent = vertex.faceIndices.length;
                 var numberOfEdgesAdjacent = vertex.edgeIndices.length;
 
                 sumOfVertexPositions.clear();
-
+              //  console.log(numberOfFacesAdjacent);
                 // For every face adjacent to vertex
                 for (var fi = 0; fi < numberOfFacesAdjacent; fi++) {
                     // Get the index of the face
@@ -259,11 +284,14 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                     sumOfVertexPositions.add(facePoint);
                 }
                 // Get the average of all adjacent face points
+             //   console.log(sumOfVertexPositions);
                 var averageOfFacePointsAdjacent = 
                 sumOfVertexPositions.clone().divideScalar
                 (
                     numberOfFacesAdjacent
                 );
+
+              //  console.log(averageOfFacePointsAdjacent);
 
                 sumOfVertexPositions.clear();
 
@@ -311,7 +339,8 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
             // Add to verticesNew
             verticesNew.append( Vertex.manyFromVectors(edgePoints));
             verticesNew.append( Vertex.manyFromVectors(facePoints));
-
+            //console.log(facePoints);
+            //console.log(verticesNew);
             // locations of vertexes in global array for the new faces
             var vertexIndicesForFacesNew = [];
 
@@ -349,6 +378,7 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
                             }
                         }
                     }
+
                     // New vertex indicies for face
                     var vertexIndicesForFaceNew =
                     [
@@ -418,37 +448,27 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
             // For each face 
             for (var f = 0; f < this.faces.length; f++) {
                 // Get the four vertex indexes
-                if (this.faces[f].vertexIndices.length == 3) {
-                    // Push those 3
-                    var v0 = this.faces[f].vertexIndices[0];
-                    var v1 = this.faces[f].vertexIndices[1];
-                    var v2 = this.faces[f].vertexIndices[2];
-                    vertices.push(v0)
-                    vertices.push(v1)
-                    vertices.push(v2) // Triangle 1
-                } else {
-                    var v0 = this.faces[f].vertexIndices[0];
-                    var v1 = this.faces[f].vertexIndices[1];
-                    var v2 = this.faces[f].vertexIndices[2];
-                    var v3 = this.faces[f].vertexIndices[3];
+                var v0 = this.faces[f].vertexIndices[0];
+                var v1 = this.faces[f].vertexIndices[1];
+                var v2 = this.faces[f].vertexIndices[2];
+                var v3 = this.faces[f].vertexIndices[3];
 
 
-                    // Add them in a 3/3 fashion for two triangles
-                    vertices.push(v0)
-                    vertices.push(v1)
-                    vertices.push(v2) // Triangle 1
+                // Add them in a 3/3 fashion for two triangles
+                vertices.push(v0)
+                vertices.push(v1)
+                vertices.push(v2) // Triangle 1
 
-                    vertices.push(v0)
-                    vertices.push(v2)
-                    vertices.push(v3) // Triangle 2 
-                }
+                vertices.push(v0)
+                vertices.push(v2)
+                vertices.push(v3) // Triangle 2 
+
             }
             return vertices;
         },
 
         // Doo Sabin subdivision method
         doosabinSubdivide: function() {
-
 
         }
 	} // End prototype

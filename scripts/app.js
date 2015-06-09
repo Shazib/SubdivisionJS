@@ -4,11 +4,11 @@ requirejs.config({
   	"DAT": "../bower_components/dat-gui/build/dat.gui",
   	"domReady": "../bower_components/domready/ready.min",
   	"extensions": "extensions",
-  	"vector": "vector",
-  	"vertex": "vertex",
-  	"edge": "edge",
-  	"face": "face",
-  	"mesh": "mesh",
+  	"vector": "mesh/vector",
+  	"vertex": "mesh/vertex",
+  	"edge": "mesh/edge",
+  	"face": "mesh/face",
+  	"mesh": "mesh/mesh",
   	"models": "models",
   	"helper": "glhelper"
     }
