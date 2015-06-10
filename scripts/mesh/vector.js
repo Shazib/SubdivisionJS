@@ -99,7 +99,7 @@ define ("vector", [], function() {
 
 		// Normalise
 		normalise: function() {
-			return this.divideScaler(this.magnitude());
+			return this.divideScalar(this.magnitude());
 		},
 
 		// Overwrite this vector object with another

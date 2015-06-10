@@ -5,12 +5,13 @@
 - Add support for .obj imports
 - Add dynamic camera positioning
   - Scan obj files for largest xyz vals?
-- Fullscreen canvas
+~~- Fullscreen canvas~~
 - Fix rotation
-- Implement dat.gui
-- Add more models
-  - Sudvidided square
-  - suzanna monkey
+
+~~- Implement dat.gui~~
+~~- Add more models~~
+~~  - Sudvidided square~~
+~~  - suzanna monkey~~
 
 - Add DooSabin subdivision
 - Add Loop subdivision

@@ -10,15 +10,15 @@
  */
 
 
- define("helper", [], function() {
+define("helper", [], function() {
 
  	// Class constructor
  	function Helper() {
  		this.base = "shaders/"
  	}
 
-	Helper.initCanvas = function(canvas, gl) {
-	  gl = null;
+	Helper.initCanvas = function(canvas) {
+	  var gl = null;
 
 	  try {
 	    // Try to grab the standard context. Fallback to experimental

@@ -81,7 +81,7 @@
  			averageOfVertPositions.overwriteWith(sumOfVertPositions)
  														.divideScalar(numVerts);
 
-
+ 			return averageOfVertPositions;
  		},
 
  		// Return the vectors of the vertices for this edge in the main array
