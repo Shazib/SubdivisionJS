@@ -4,12 +4,116 @@
 		"selected_items":
 		[
 			[
-				"average",
-				"averageOfFacePointsAdjacent"
+				"push",
+				"pushIfNotExists (fn/1)"
+			],
+			[
+				"ed",
+				"oldEdgeIndexes (?)"
+			],
+			[
+				"new",
+				"newEdges ([])"
+			],
+			[
+				"in",
+				"indicesForFace (obj)"
+			],
+			[
+				"ver",
+				"vertexIndicesForFace (?)"
+			],
+			[
+				"verte",
+				"vertexIndicesForFaces ([])"
+			],
+			[
+				"modelC",
+				"modelColor ([])"
 			],
 			[
 				"face",
-				"facePoints ([])"
+				"faces ([])"
+			],
+			[
+				"fa",
+				"faces ([])"
+			],
+			[
+				"vertexin",
+				"vertexIndicesForFaces ([])"
+			],
+			[
+				"vertex",
+				"vertexIndicesForFace"
+			],
+			[
+				"old",
+				"oldEdgeIndexes"
+			],
+			[
+				"vertexindi",
+				"vertexIndicesForFace"
+			],
+			[
+				"ve",
+				"vertexIndicesForFace (?)"
+			],
+			[
+				"vert",
+				"vertexIndex (?)"
+			],
+			[
+				"model",
+				"modelColors ([])"
+			],
+			[
+				"vertexIn",
+				"vertexIndicesForFace"
+			],
+			[
+				"mid",
+				"midOne (?)"
+			],
+			[
+				"vertexinde",
+				"vertexIndexTwo (?)"
+			],
+			[
+				"edgein",
+				"edgeIndexTwo (?)"
+			],
+			[
+				"num",
+				"numEdgesInFace (?)"
+			],
+			[
+				"edgeIn",
+				"edgeIndices"
+			],
+			[
+				"s",
+				"doosabinSubdivide (fn/0)"
+			],
+			[
+				"get",
+				"getCenter (?)"
+			],
+			[
+				"nu",
+				"numFaces (num)"
+			],
+			[
+				"edgeT",
+				"edgeTwoIndex (?)"
+			],
+			[
+				"getE",
+				"getEdgePoint"
+			],
+			[
+				"average",
+				"averageOfFacePointsAdjacent"
 			],
 			[
 				"edges",
@@ -18,10 +122,6 @@
 			[
 				"edgepo",
 				"edgePoints ([])"
-			],
-			[
-				"fa",
-				"facePoints ([])"
 			],
 			[
 				"viewport",
@@ -56,10 +156,6 @@
 				"RotationX (fn/1)"
 			],
 			[
-				"new",
-				"newRotationMatrix (obj)"
-			],
-			[
 				"matri",
 				"multMatrix (fn/1)"
 			],
@@ -88,20 +184,8 @@
 				"modelColor ([])"
 			],
 			[
-				"ve",
-				"vectorArray (fn/0)"
-			],
-			[
-				"num",
-				"numToDraw (num)"
-			],
-			[
 				"TRI",
 				"TRIANGLE_FAN (num)"
-			],
-			[
-				"vertexin",
-				"vertexIndicesForFacesNew ([])"
 			],
 			[
 				"mesh",
@@ -116,20 +200,8 @@
 				"meshCubeC (obj)"
 			],
 			[
-				"vert",
-				"vertices ([])"
-			],
-			[
-				"vertex",
-				"vertexPositionAttribute (?)"
-			],
-			[
 				"ena",
 				"enableVertexAttribArray (?)"
-			],
-			[
-				"s",
-				"squareVerticesBuffer (?)"
 			],
 			[
 				"vertexNew",
@@ -156,16 +228,8 @@
 				"numberOfVerticesOriginal (num)"
 			],
 			[
-				"edgein",
-				"edgeIndicesShared ([])"
-			],
-			[
 				"vetre",
 				"vertexOriginal (?)"
-			],
-			[
-				"verte",
-				"vertexIndex (num)"
 			],
 			[
 				"facePo",
@@ -196,10 +260,6 @@
 				"edgeIndex (?)"
 			],
 			[
-				"ed",
-				"edgeFromFacePointtoEdgePoint ([])"
-			],
-			[
 				"number",
 				"numberOfVerticesOriginal (num)"
 			],
@@ -218,10 +278,6 @@
 			[
 				"po",
 				"positions (?)"
-			],
-			[
-				"ver",
-				"vertexIndicesForFace (?)"
 			],
 			[
 				"divi",
@@ -308,10 +364,6 @@
 				"arrayA"
 			],
 			[
-				"get",
-				"getNcols"
-			],
-			[
 				"prev",
 				"prev_seq"
 			],
@@ -336,37 +388,67 @@
 	"buffers":
 	[
 		{
+			"file": "scripts/mesh/vector.js",
+			"settings":
+			{
+				"buffer_size": 2908,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "scripts/app.js",
 			"settings":
 			{
-				"buffer_size": 9602,
+				"buffer_size": 12033,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "scripts/mesh.js",
+			"file": "scripts/mesh/vertex.js",
 			"settings":
 			{
-				"buffer_size": 17847,
+				"buffer_size": 1340,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "/**\n * vector.js\n * SubdivisionJS\n *\n * Created by shazib hussain on 07/06/2015\n * copyright (c) 2015 Shazib Hussain\n *\n * This class defines a 3D vector with x, y and z elements. \n */\n// Load dependancies\ndefine (\"vector\", [], function() {\n	\"use strict\";\n\n	// Class constructor\n	function Vector(x, y, z) {\n		// Confirm new keyword was used\n		if (!(this instanceof Vector)) {\n			throw new TypeError(\"Vector constructor cannot be called as a function\");\n		}\n		// Create vector\n		this.x = x;\n		this.y = y;\n		this.z = z;\n	}\n\n	// Generic public constructor\n	Vector.create = function(x, y, z) {\n		var vec = new Vector(x, y, z);\n		return vec;\n	}\n\n	Vector.prototype = {\n		// Repoint the constrctor for prototype redefine\n		constructor: Vector,\n\n		// Add a vector to this vector\n		add: function(other) {\n			this.x += other.x;\n			this.y += other.y;\n			this.z += other.z;\n\n			return this;\n		},\n\n		// Set all elements to zero\n		clear: function() {\n			this.x = 0;\n			this.y = 0;\n			this.z = 0;\n\n			return this;\n		},\n\n		// Copy (return new instance of this vector) \n		clone: function() {\n			return new Vector(this.x, this.y, this.z);\n		},\n\n		// Cross product\n		crossProduct: function(other) {\n			return this.overwriteWithXYZ (\n		    this.y * other.y - other.y * this.z,\n        other.x * this.z - this.x * other.z,\n        this.x * other.y - other.x * this.y\n			);\n		},\n\n		// Divide by scalar\n		divideScalar: function(scalar) {\n			this.x /= scalar;\n			this.y /= scalar;\n			this.z /= scalar;\n			\n			return this;\n		},\n\n		// Dot product\n		dotProduct: function(other) {\n			 return (this.x * other.x + this.y + other.y + this.z + other.z);\n		},\n	\n		// Magnitude - Returns scalar\n		magnitude: function() {\n	    return Math.sqrt(\n	    	Math.pow(this.x, 2) + \n	    	Math.pow(this.y, 2) +\n	    	Math.pow(this.z, 2)\n	    );\n		},\n\n		// Multiply scalar\n		multiplyScalar: function(scalar) {\n			this.x *= scalar;\n			this.y *= scalar;\n			this.z *= scalar;\n\n			return this;\n		},\n\n		// Normalise\n		normalise: function() {\n			return this.divideScaler(this.magnitude());\n		},\n\n		// Overwrite this vector object with another\n		overwriteWith: function(other) {\n			this.x = other.x;\n			this.y = other.y;\n			this.z = other.z;\n\n			return this;\n		},\n\n		// Overwrite with specific values\n		overwriteWithXYZ: function(x, y, z) {\n			this.x = x;\n			this.y = y;\n			this.z = z;\n\n			return this;\n		},\n\n		// Subtract\n		suctract: function(other) {\n        this.x -= other.x;\n        this.y -= other.y;\n        this.z -= other.z;\n\n        return this;\n    },\n\n    // Get element array\n    getElements: function() { \n        return [this.x, this.y, this.z];\n    },\n\n	}; // End prototype\n\n	// Return reference to constructor\n	return Vector;\n\n}); // End define",
-			"file": "scripts/vector.js",
-			"file_size": 2854,
-			"file_write_time": 130781857425338085,
+			"contents": "        //Doo Sabin subdivision method\n        doosabinSubdivide: function() {\n            // Useful vars for iterating\n            var numFaces = this.faces.length;\n            var numEdges = this.edges.length;\n            var numVertices = this.vertices.length;\n\n            // Face points\n            var facePoints = [];\n            for (var f = 0; f < numFaces; f++) {\n                facePoints.push(this.faces[f].getCenter(this));\n            }\n            this.facePoints = facePoints\n            // For edges \n            // Add edge popint\n            // Average of faces and neighbouring points\n            // Same as catmull\n            var edgePoints = [];\n            for  (var e = 0; e < numEdges; e++) {\n                edgePoints.push(this.edges[e].midpoint(this));\n            }\n\n            var vertexIndicesForFaces = [];\n            var newVertices = [];\n\n            var sumOfVertexPositions = new Vector();\n            var averageOfVertexPositions = new Vector();\n            averageOfVertexPositions.clear();\n\n            // For every face\n            var vertIndex = 0\n           // console.log(numFaces);\n            for (var f = 0; f < 1; f++) {\n                var face = this.faces[f];\n                var numEdges = face.edgeIndices.length\n\n                // Store the position of the face vertices in newVertices\n                var vertexIndicesForFace = []\n                // For every edge of the face\n\n                console.log(face.getCenter(this));\n\n                for (var e = 0; e < numEdges; e++) {\n                    // Get edge indexes\n                    var ei = face.edgeIndices[e]\n                    var edge = this.edges[ei];\n                    var vi = edge.vertexIndices[1];\n                    var vec = new Vector()\n                    vec.overwriteWith(this.vertices[vi].vec);\n                   // console.log(vec)\n\n                    // Get two edge indexes\n                    var ei1 = face.edgeIndices[e];\n                    var temp = e+1;\n                    if (temp >= numEdges) { \n                        temp = 0 \n                    }\n                    var ei2 = face.edgeIndices[temp];\n\n                    // Get two edges\n                    var e1 = this.edges[ei1];\n                    var e2 = this.edges[ei2];\n\n                    // Get two midpoints\n                    var e1Mid = e1.midpoint(this);\n                    var e2Mid = e2.midpoint(this);\n\n                    // get facepoint (0,0,1)????\n                    var facepoint = face.getCenter(this);\n\n                    // Get vertex of edge one\n                    var vi = e1.vertexIndices[1];\n                    var vec = this.vertices[vi].vec;\n\n                    // Get first vertex of edge 2\n                    var e2vi = e2.vertexIndices[0];\n                    var vec2 = this.vertices[e2vi].vec;\n                  //  console.log(\"----------------------\");\n                  //  console.log(vec);\n                   // console.log(vec2);\n                    console.log(facepoint);\n                    // if they arent equal (index is wrong on edge1) \n                    if (!vec.isEqualTo(vec2)) {\n                        vec.overwriteWith(vec2);\n                    }\n\n                    // Add\n                    var sum = new Vector();\n                    sum.clear();\n\n                    // edge vertexes both\n                    var vi0 = e1.vertexIndices[0];\n                    var vi1 = e1.vertexIndices[1];\n                    var v1 = this.vertices[vi0].vec;\n                    var v2 = this.vertices[vi1].vec;\n\n                    \n\n                \n                   // console.log(e1Mid);\n                  //  console.log(e2Mid);\n                  //  console.log(vec);\n\n\n                    sum.add(e1Mid).add(e2Mid).add(facepoint).add(vec);\n                    sum.divideScalar(4);\n\n                  //  console.log(sum);\n                  //  console.log(\"-------------------------\");\n                }\n\n\n                for (var e = 0; e < numEdges; e++) {\n\n                    // Get the two edges needed\n                    var edgeOneIndex = face.edgeIndices[e];\n\n                    var edgeTwoIndex = face.edgeIndices[(e+1)%numEdges];\n\n                    // Get the actual edges\n                    var edgeOne = this.edges[edgeOneIndex];\n                    var edgeTwo = this.edges[edgeTwoIndex];\n                    // get edge vertex indices\n                    var edgeOneVec = edgePoints[edgeOneIndex];\n                    var edgeTwoVec = edgePoints[edgeTwoIndex];\n\n                    // Get the facepoint vector\n                    var facePoint = facePoints[f];\n\n                    // Get first vertex of e1 \n                    var vertexIndex = edgeOne.vertexIndices[1];\n                    \n                    // Get the vertex\n                    var vertex = this.vertices[vertexIndex];\n\n\n                    // Now there is enough information to generate a new vector\n                   \n                    sumOfVertexPositions.clear();\n                    averageOfVertexPositions.clear();\n                    // Get the position of the new point\n                    sumOfVertexPositions.add(edgeOneVec)\n                                        .add(edgeTwoVec)\n                                        .add(facePoint)\n                                        .add(vertex.vec)//.divideScalar(4);\n                    averageOfVertexPositions.overwriteWith\n                        (\n                         sumOfVertexPositions\n                        ).divideScalar(4);\n\n                    face.getCenter(this)\n                    // console.log(sumOfVertexPositions);\n                    // console.log(averageOfVertexPositions);\n                    // console.log(edgeOneVec)\n                    // console.log(edgeTwoVec)\n                    // console.log(facePoint)\n                    // console.log(vertex.vec);\n                    // console.log(\"---------\")\n\n\n                    // Add this as a vertex to the vertex array\n                    newVertices.push(new Vertex(averageOfVertexPositions.clone()));\n\n                    // Clear the vector\n                    averageOfVertexPositions.clear()\n                    sumOfVertexPositions.clear();\n\n                    // Add the vertex index for this face\n                    vertexIndicesForFace.push(vertIndex);\n\n                    // Add the index to the edge\n                    edgeOne.vertexIndicesForFace.push(vertIndex);\n\n                    // Add the index to the vertex\n                    vertex.vertexIndicesForFace.push(vertIndex);\n\n                    // Increment the index\n                    vertIndex++;\n\n                }\n                //console.log(vertIndex)\n                // Now every point of the face has been created\n                // Add the face indexes to the main array\n                vertexIndicesForFaces.push(vertexIndicesForFace);\n\n            }\n\n            // Now generate the face for every edge\n            // Which should have 4 points\n            for (var e = 0; e < this.edges.length; e++) {\n                var edge = this.edges[e];\n               // vertexIndicesForFaces.push(edge.vertexIndicesForFace);\n            }\n\n            // Now generate the face for every vertex\n            for (var v = 0; v < this.vertices.length; v++) {\n                var vertex = this.vertices[v];\n              //  vertexIndicesForFaces.push(vertex.vertexIndicesForFace);\n            }\n\n            var returnValue = Models.face(); \n            (\n                \"DooSabin\",\n                newVertices,\n                vertexIndicesForFaces\n            );\n\n            return 1;\n        }\n\n\n\n\n\n\n\n\n\n\n\n\n            //console.log(vertex.oldEdgeIndexes.length);  \n            // if (\n            //     vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[6] ||\n            //     vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[7] ||\n            //     vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[6] ||\n            //     vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[7] \n            //     ) \n            // {\n            //   // everything is good\n            //   vertexIndicesForFaces.push(vertex.vertexIndicesForFace);\n\n            // } else {\n            //   if (v == 10 ) {\n            //     console.log(v, \"  \", vertex.oldEdgeIndexes);\n            //     // problem\n            //     var c = vertex.vertexIndicesForFace[2];\n            //     var d = vertex.vertexIndicesForFace[3];\n            //     vertex.vertexIndicesForFace[2] = d;\n            //     vertex.vertexIndicesForFace[3] = c;\n\n            //     vertexIndicesForFaces.push(vertex.vertexIndicesForFace);\n            //   }\n            // }\n\n\n\n\n\n          // If 4 sided \n          if (vertex.vertexIndicesForFace.length == 4) {\n            // If egdes 4 or 5 are equal to 0 or 1\n            if (\n                vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[4] ||\n                vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[5] ||\n                vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[4] ||\n                vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[5] \n              )\n            {\n\n\n              console.log(v, \"  \", vertex.oldEdgeIndexes);\n              // var c = vertex.vertexIndicesForFace[2];\n              // var d = vertex.vertexIndicesForFace[3];\n              // vertex.vertexIndicesForFace[2] = d;\n              // vertex.vertexIndicesForFace[3] = c;\n              vertexIndicesForFaces.push(vertex.vertexIndicesForFace);\n            }  \n\n\n\n\n              // Rearrange some stuff\n              var edges =  vertex.oldEdgeIndexes;\n\n              var newEdges = [\n              [edges[2],edges[3], vertex.vertexIndicesForFace[1]], // 0\n              [edges[4],edges[5], vertex.vertexIndicesForFace[2]], // 1\n              [edges[6],edges[7], vertex.vertexIndicesForFace[3]]  // 2\n              ];\n\n              // Rearrange\n              var finalEdges = [\n              [edges[0],edges[1], vertex.vertexIndicesForFace[0]]\n              ];\n\n              console.log(\"starting do while\");\n              console.log(newEdges);\n              console.log(finalEdges);\n              // do {\n              //   for (var i = 0; i < newEdges.length; i++) {\n              //     console.log(newEdges.length);\n              //     if (newEdges.length == 1) {\n              //       finalEdges.push(newEdges[0]);\n              //       newEdges.splice(0, 1);\n              //     }\n              //     if (newEdges[i][0] == finalEdges.last()[1]) {\n              //       // Add and break\n              //       finalEdges.push(newEdges[i]);\n              //       newEdges.splice(i,1);\n              //       console.log(\"is true\");\n              //     } \n              //   }\n\n              // }\n              // while(finalEdges.length < 4 );\n\n              // console.log(\"ending do while\");\n\n              // vertexIndicesForFaces.push([\n              //   finalEdges[0][2],\n              //   finalEdges[1][2],\n              //   finalEdges[2][2],\n              //   finalEdges[3][2],\n              // ]);\n\n\n\n\n\n      // for every face\n      // for (var fi = 0; fi < this.faces.length; fi++) {\n      //   var face = this.faces[fi];\n      //   // for every edge of every face\n      //   //console.log(face.edgeIndices.length);\n      //   for (var ei = 0; ei < face.edgeIndices.length; ei++) {\n      //     // Get the edge\n      //     var edge = this.edges[face.edgeIndices[ei]];\n      //     // Check if edge has this face index\n      //   // console.log(edge.faceIndices.length);\n\n\n      //    for (var f = 0; f < edge.faceIndices.length; f++) {\n      //     if (edge.faceIndices.length != 2) {\n      //      // console.log(\"this edge is wrong\");\n      //       console.log(\"face: \", fi, \"edge: \", face.edgeIndices[ei],\n      //         \"edges face indexes: \", edge.faceIndices);\n      //     }\n      //    }\n\n          // if (edge.faceIndices.indexOf(fi) == -1) {\n          //   // Does not exist\n          //   console.log(\"doesnt exist\");\n          // }\n        }\n      }\n\n      // face 3\n      // var face = this.faces[3];\n      // console.log(face.edgeIndices.length);\n      // // 4 edges in this face, edge should have 2 faces\n\n      // for (var ei = 0; ei < face.edgeIndices.length; ei++) {\n      //   var edgeIndex = face.edgeIndices[ei];\n      //   var edge = this.edges[edgeIndex];\n      //   //console.log(edge.faceIndices.length);s\n      //   console.log(edgeIndex);\n      //   console.log(edge.faceIndices);\n      // }\n\n\n\n      // for (var fi = 0; fi < this.faces.length; fi++) {\n      //   var face = this.faces[fi];\n\n      //   for (var ei = 0; ei < face.edgeIndices.length; ei++) {\n      //     var edgeIndex = face.edgeIndices[ei];\n\n      //     if (edgeIndex == 429) {\n      //       console.log(\"Face of edge 429: \", fi);\n      //     }\n      //   }\n      // }",
 			"settings":
 			{
-				"buffer_size": 2709,
+				"buffer_size": 12906,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "\n\n\nfunction start() {\n  console.log(\"start\");\n}\n\n\n\n\nrequirejs.config({\n    paths: {\n    \"glm\": \"../bower_components/gl-matrix/dist/gl-matrix\",\n    \"DAT\": \"../bower_components/dat-gui/build/dat.gui\",\n    \"domReady\": \"../bower_components/domready/ready.min\",\n    \"extensions\": \"extensions\",\n    \"vector\": \"vector\",\n    \"vertex\": \"vertex\",\n    \"edge\": \"edge\",\n    \"face\": \"face\",\n    \"mesh\": \"mesh\",\n    \"models\": \"models\",\n    \"helper\": \"glhelper\"\n    }\n});\n\n// globals objects\nvar canvas;\nvar gl;\n\n// Model data buffers\nvar modelVecBuffer;\nvar modelVecColorBuffer;\nvar modelVecIndexBuffer;\nvar modelWireBuffer;\nvar modelWireColorBuffer;\n// Model data counts\nvar numElements;\nvar numVectors;\n// Shader stuff\nvar shaderProgram;\nvar vertexPositionAttribute;\nvar vertexColorAttribute;\n// keeping track of things\nvar subCount = 0;\nvar modelRotationMatrix; \nvar mouseDown = false;\nvar lastMouseX = null;\nvar lastMouseY = null;\n\nvar mvMatrix;\nvar perspectiveMatrix;\n\nrequire(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'], \n    function(domReady, Extension, Models, Mesh, Helper, glm) {\n\n    domReady(function() {\n        // This function is called once the DOM is ready\n        console.log(\"dom ready\");\n\n      // Get canvas\n      canvas = document.getElementById(\"glcanvas\");\n      // init gl\n      //gl = Helper.initCanvas(canvas, gl);\n      initWebGL(canvas);\n\n      if (gl) {\n\n        console.log(\"gl init\");\n        gl.clearColor(0.31, 0.58, 0.8, 1.0);  // Clear to black, fully opaque\n        gl.clearDepth(1.0);                 // Clear everything\n        gl.enable(gl.DEPTH_TEST);           // Enable depth testing\n        gl.depthFunc(gl.LEQUAL);            // Near things obscure far things\n\n        // Init the shaders\n        initShaders();\n\n        // initialise the mesh and various data buffers\n        initBuffers(subCount);\n\n        // Draw\n        setInterval(drawScene, 15);\n      }\n\n    });\n\nfunction initWebGL(canvas) {\n  gl = null;\n\n  try {\n    // Try to grab the standard context. Fallback to experimental\n    gl = canvas.getContext(\"webgl\") || canvas.getContext(\"experimental-webgl\");\n  }\n  catch(e) {}\n\n  // Give up if no context\n  if (!gl) {\n    alert(\"Unable to initialise WebGL. Your browser may not support it\");\n    gl = null;\n  }\n\n}\n\n// Get shaders from DOM\nfunction getShader(gl, id) {\n  var shaderScript, theSource, currentChild, shader;\n\n  // Find the element with the specified ID and read source\n  shaderScript = document.getElementById(id);\n\n  if (!shaderScript) {\n    return null;\n  }\n\n  theSource = \"\";\n  currentChild = shaderScript.firstChild;\n\n  while (currentChild) {\n    if (currentChild.nodeType == currentChild.TEXT_NODE) {\n      theSource += currentChild.textContent;\n    }\n\n    currentChild = currentChild.nextSibling;\n  }\n\n  // Create the shader by checking its type\n  if (shaderScript.type == \"x-shader/x-fragment\") {\n    shader = gl.createShader(gl.FRAGMENT_SHADER);\n  } else if (shaderScript.type == \"x-shader/x-vertex\") {\n    shader = gl.createShader(gl.VERTEX_SHADER);\n  } else {\n    // Unknown shader type\n    return null;\n  }\n\n  // Pass the source to the shader and compile it\n  gl.shaderSource(shader, theSource);\n\n  // Compile the shader program\n  gl.compileShader(shader);\n\n  // Check compilation\n  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n    alert(\"An error occured compiling shaders: \" + gl.getShaderInfoLog(shader));\n    return null;\n  }\n  return shader;\n}\n\n// Init the shader program\nfunction initShaders() {\n    // var fragShader = Helper.loadShaderFromDOM(gl, \"shader-fs\");\n    // var vertShader = Helper.loadShaderFromDOM(gl, \"shader-vs\");\n  // Get the shaders\n  var fragShader = getShader(gl, \"shader-fs\");\n  var vertShader = getShader(gl, \"shader-vs\");\n\n\n    // Create the shader program\n    shaderProgram = gl.createProgram();\n\n    // Attach shaders to program\n    gl.attachShader(shaderProgram, vertShader);\n    gl.attachShader(shaderProgram, fragShader);\n\n    // Link program\n    gl.linkProgram(shaderProgram);\n\n    // Check failure\n    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {\n        alert(\"Unable to initalise the shader program\");\n    }\n\n    // Tell gl to use this program\n    gl.useProgram(shaderProgram);\n\n  // Enable shader attributes\n  vertexPositionAttribute = gl.getAttribLocation(shaderProgram, \"aVertexPosition\");\n  gl.enableVertexAttribArray(vertexPositionAttribute);\n\n  vertexColorAttribute = gl.getAttribLocation(shaderProgram, \"aVertexColor\");\n  gl.enableVertexAttribArray(vertexColorAttribute);\n}\n\n// Creating the buffers to contain the vertices\nfunction initBuffers(count) {\n\n  var meshCube = Models.cube();\n\n  for (var i = 0; i < count; i++) {\n    meshCube = meshCube.subdivide();\n  }\n\n  // vertices of the cube\n  var vertices = [];\n  vertices = meshCube.vectorArray();\n\n  // get the index array\n  var vectorIndex = [];\n  vectorIndex = meshCube.elementArray();\n\n  // number of indexes\n  numElements = vectorIndex.length;\n\n  // Wireframe edges\n  var wireframeVectors = [];\n  wireframeVectors = meshCube.wireframeVertices();\n\n  // Number of vertices in wireframe\n  numVectors = wireframeVectors.length/3;\n\n  // console.log(wireframeVectors.length);\n  // console.log(meshCube.edges.length * 2);\n\n  // Black \n  var blackColor = [0.0, 0.0, 0.0, 1.0];\n  // Object color\n  var modelColor = [0.4,  0.8, 0.59, 1.0];\n\n  var wireframeColors = [];\n  for (var c = 0; c < numVectors; c++) {\n    wireframeColors.append(blackColor);\n  }\n  var modelColors = [];\n  for (var c = 0; c < meshCube.vertices.length; c++) {\n    modelColors.append(modelColor);\n  }\n\n  // cubeVecBuffer\n  cubeVecBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);\n\n  // Element Array\n  cubeVecIndexBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);\n  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(vectorIndex), gl.STATIC_DRAW);\n\n  // Model colour buffer\n  cubeVecColorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(modelColors), gl.STATIC_DRAW);\n\n  // wireframe buffer\n  cubeWireBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeVectors), gl.STATIC_DRAW);\n\n  // Wireframe colors buffer\n  cubeWireColorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeColors), gl.STATIC_DRAW);\n\n}\n\n\n\nvar firstRun = false;\n\n// Draw the scene\nfunction drawScene() {\n\n\n    // clear everything\n    gl.clear(gl.COLOR_BUFFER_BIT| gl.DEPTH_BUFFER_BIT);\n  perspectiveMatrix = glm.mat4.create();\n    // Create perspective\n    glm.mat4.perspective(perspectiveMatrix, Math.degToRad(45.0), canvas.width/canvas.height, 0.1, 100.0);\n\n    // Perform a translation on the model view matrix\n    if (!firstRun) {\n    mvMatrix = glm.mat4.create();\n\n        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, -0.0, -6.0]);\n        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);\n        firstRun = true;\n   \n    }\n\n    setMatrixUniforms();\n\n  // Bind vectors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);\n  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexPositionAttribute)\n  // Bind colors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);\n  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexColorAttribute)\n  // Bind element array\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);\n  // Draw\n  gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_SHORT, 0);\n\n  // Bind edge vectors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);\n  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexPositionAttribute)\n  // Bind colors\n  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);\n  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);\n  gl.enableVertexAttribArray(vertexColorAttribute)\n  // Draw lines\n  gl.drawArrays(gl.LINES, 0, numVectors)\n\n  \n}\n\nfunction setMatrixUniforms() {\n  // set the perspective matrix\n  var pUniform = gl.getUniformLocation(shaderProgram, \"uPMatrix\");\n  gl.uniformMatrix4fv(pUniform, false, new Float32Array(mvMatrix));\n\n  // set the model view matrix\n  var mvUniform = gl.getUniformLocation(shaderProgram, \"uMVMatrix\");\n  gl.uniformMatrix4fv(mvUniform, false, new Float32Array(perspectiveMatrix));\n\n}\n\n});",
+			"file": "scripts/mesh/edge.js",
 			"settings":
 			{
-				"buffer_size": 8633,
+				"buffer_size": 3369,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "[0, 25]\n[0, 21]\n[0, 2]\n[1, 22]\n[1, 24]\n[1, 5]\n[2, 27]\n[2, 3]\n[3, 30]\n[3, 4]\n[4, 33]\n[4, 25]\n[5, 36]\n[5, 10]\n[6, 20]\n[6, 39]\n[6, 11]\n[7, 26]\n[7, 42]\n[7, 12]\n[8, 29]\n[8, 45]\n[8, 13]\n[9, 32]\n[9, 48]\n[9, 14]\n[10, 51]\n[10, 40]\n[11, 54]\n[11, 43]\n[12, 57]\n[12, 46]\n[13, 60]\n[13, 49]\n[14, 63]\n[14, 37]\n[15, 50]\n[15, 66]\n[15, 70]\n[16, 53]\n[16, 69]\n[16, 73]\n[17, 56]\n[17, 72]\n[17, 76]\n[18, 59]\n[18, 75]\n[18]\n[19, 62]\n[19, 78]\n[19, 67]\n[20, 21]\n[20, 28]\n[21, 22]\n[22, 40]\n[23, 24]\n[23, 32]\n[23, 37]\n[24, 25]\n[26, 27]\n[26, 31]\n[27, 28]\n[28, 43]\n[29, 30]\n[29, 34]\n[30, 31]\n[31, 46]\n[32, 33]\n[33, 34]\n[34, 49]\n[35, 36]\n[35, 62]\n[35, 52]\n[36, 37]\n[38, 39]\n[38, 50]\n[38, 55]\n[39, 40]\n[41, 42]\n[41, 53]\n[41, 58]\n[42, 43]\n[44, 45]\n[44, 56]\n[44, 61]\n[45, 46]\n[47, 48]\n[47, 59]\n[47, 64]\n[48, 49]\n[50, 51]\n[51, 52]\n[52, 67]\n[53, 54]\n[54, 55]\n[55, 70]\n[56, 57]\n[57, 58]\n[58, 73]\n[59, 60]\n[60, 61]\n[61, 76]\n[62, 63]\n[63, 64]\n[64, 79]\n[65, 66]\n[65, 77]\n[65, 68]\n[66, 67]\n[68, 69]\n[68, 71]\n[69, 70]\n[71, 72]\n[71, 74]\n[72, 73]\n[74, 75]\n[74, 77]\n[75, 76]\n[77, 78]\n[78]\n[79]\n[79]",
+			"settings":
+			{
+				"buffer_size": 1051,
+				"line_ending": "Windows",
+				"name": "[0, 25]"
+			}
+		},
+		{
+			"file": "scripts/models.js",
+			"settings":
+			{
+				"buffer_size": 63617,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/mesh/face.js",
+			"settings":
+			{
+				"buffer_size": 2413,
 				"line_ending": "Windows"
 			}
 		},
@@ -374,15 +456,32 @@
 			"file": "scripts/extensions.js",
 			"settings":
 			{
-				"buffer_size": 404,
+				"buffer_size": 1153,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/mesh/mesh.js",
+			"settings":
+			{
+				"buffer_size": 22003,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "[0, 1, 2]\n[3, 4, 5]\n[2, 6, 7]\n[7, 8, 9]\n[9, 10, 11]\n[5, 12, 13]\n[14, 15, 16]\n[17, 18, 19]\n[20, 21, 22]\n[23, 24, 25]\n[13, 26, 27]\n[16, 28, 29]\n[19, 30, 31]\n[22, 32, 33]\n[25, 34, 35]\n[36, 37, 38]\n[39, 40, 41]\n[42, 43, 44]\n[45, 46, 47]\n[48, 49, 50]\n[51, 14, 52]\n[1, 53, 51]\n[3, 54, 53]\n[55, 56, 57]\n[4, 58, 55]\n[0, 11, 58]\n[59, 17, 60]\n[6, 61, 59]\n[52, 62, 61]\n[63, 20, 64]\n[8, 65, 63]\n[60, 66, 65]\n[67, 23, 56]\n[10, 68, 67]\n[64, 69, 68]\n[70, 71, 72]\n[12, 73, 70]\n[57, 35, 73]\n[74, 75, 76]\n[15, 77, 74]\n[54, 27, 77]\n[78, 79, 80]\n[18, 81, 78]\n[62, 29, 81]\n[82, 83, 84]\n[21, 85, 82]\n[66, 31, 85]\n[86, 87, 88]\n[24, 89, 86]\n[69, 33, 89]\n[90, 36, 75]\n[26, 91, 90]\n[72, 92, 91]\n[93, 39, 79]\n[28, 94, 93]\n[76, 95, 94]\n[96, 42, 83]\n[30, 97, 96]\n[80, 98, 97]\n[99, 45, 87]\n[32, 100, 99]\n[84, 101, 100]\n[102, 48, 71]\n[34, 103, 102]\n[88, 104, 103]\n[105, 106, 107]\n[37, 108, 105]\n[92, 50, 108]\n[109, 107, 110]\n[40, 111, 109]\n[95, 38, 111]\n[112, 110, 113]\n[43, 114, 112]\n[98, 41, 114]\n[115, 113, 116]\n[46, 117, 115]\n[101, 44, 117]\n[118, 116, 106]\n[49, 119, 118]\n[104, 120, 121]",
+			"settings":
+			{
+				"buffer_size": 1060,
+				"line_ending": "Windows",
+				"name": "[0, 1, 2]"
 			}
 		},
 		{
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 1479,
+				"buffer_size": 1855,
 				"line_ending": "Unix"
 			}
 		}
@@ -403,6 +502,14 @@
 				"Package Control: Install Package"
 			],
 			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
 				"pack",
 				"Package Control: Enable Package"
 			],
@@ -411,15 +518,7 @@
 				"Set Syntax: JavaScript"
 			],
 			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
 				"instal",
-				"Package Control: Install Package"
-			],
-			[
-				"insta",
 				"Package Control: Install Package"
 			],
 			[
@@ -499,18 +598,30 @@
 	[
 		"/C/Users/Shazib/Desktop/SubdivisionJS",
 		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components",
-		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components/domready",
-		"/C/Users/Shazib/Desktop/SubdivisionJS/bower_components/domready/src",
-		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts"
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/libs",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/mesh"
 	],
 	"file_history":
 	[
+		"/C/Users/Shazib/Desktop/random.csv",
+		"/C/Users/Shazib/Desktop/random.cvs",
+		"/C/Users/Shazib/Desktop/untitled.obj",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/mesh/mesh.js",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/libs/dat.gui.js",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/User/Choose Browser.sublime-build",
 		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/glhelper.js",
+		"/C/Users/Shazib/Desktop/matlab.txt",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/vector.js",
+		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/package.json",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/.tern-project",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/index.html",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/extensions.js",
+		"/C/Users/Shazib/Desktop/SubdivisionJS/scripts/mesh.js",
 		"/C/Users/Shazib/Desktop/Thesis - 2D - Copy - Copy (3)/sylvester.src.js",
 		"/C/Users/Shazib/Desktop/sylvester.js",
 		"/C/Users/Shazib/Desktop/SubdivisionJS/sylvester.js",
 		"/C/Users/Shazib/Desktop/SubdivisionJS/subdivisionjs.sublime-workspace",
-		"/C/Users/Shazib/Desktop/untitled.obj",
 		"/C/Users/Shazib/Desktop/ThesisCube/glUtils.js",
 		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.512/sylvester.js",
 		"/C/Users/Shazib/Desktop/ThesisCube/temp.js",
@@ -620,19 +731,7 @@
 		"/C/Users/Shazib/AppData/Roaming/Sublime Text 3/Packages/Pretty JSON/Pretty JSON.sublime-settings",
 		"/C/Users/Shazib/Desktop/latex/achemso-demo.bbl",
 		"/C/Users/Shazib/Desktop/latex/achemso-demo.aux",
-		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.510/README_AJBREC_v1.21d.txt",
-		"/C/Users/Shazib/Desktop/New folder (2)/Ver.txt",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/playerdata/ec979b6b-fc3f-4711-ad27-73859e163be6.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/forcedchunks.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/labyrinth.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/multipart.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/level.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_0_-4.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_-1_-3.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/spawndata/0_-2_0.dat",
-		"/C/Users/Shazib/Desktop/MultiMC/instances/Novacraft/minecraft/saves/New World/AE2/settings.cfg",
-		"/E/config.txt",
-		"/C/Users/Shazib/Desktop/crash-2015-03-16_02.18.01-server.txt"
+		"/C/Users/Shazib/AppData/Local/Temp/Rar$DIa0.510/README_AJBREC_v1.21d.txt"
 	],
 	"find":
 	{
@@ -650,6 +749,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"47",
+			"requestAnimationFrame",
+			"    ",
+			"\\t",
+			"averageofv",
+			"console.lo",
 			".faceindic",
 			"console",
 			"console.",
@@ -761,6 +866,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"  ",
 			"model",
 			"",
 			"std::cin",
@@ -780,84 +886,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "scripts/app.js",
+					"file": "scripts/mesh/vector.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9602,
+						"buffer_size": 2908,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6587,
-								6587
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2087.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "scripts/mesh.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17847,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1335,
-								1335
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "scripts/vector.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2709,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								517,
-								517
+								1969,
+								1969
 							]
 						],
 						"settings":
@@ -866,26 +912,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 408.0,
+						"translation.y": 1098.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
+					"file": "scripts/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8633,
+						"buffer_size": 12033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1910,
-								1910
+								5080,
+								5080
 							]
 						],
 						"settings":
@@ -895,27 +942,55 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1407.0,
+						"translation.y": 2350.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "scripts/extensions.js",
+					"buffer": 2,
+					"file": "scripts/mesh/vertex.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 404,
+						"buffer_size": 1340,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								378,
-								366
+								840,
+								840
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12906,
+								12906
 							]
 						],
 						"settings":
@@ -923,6 +998,62 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5279.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "scripts/mesh/edge.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2322,
+								2322
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1071.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1051,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								395,
+								395
+							]
+						],
+						"settings":
+						{
+							"auto_name": "[0, 25]",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -932,20 +1063,174 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "index.html",
+					"buffer": 6,
+					"file": "scripts/models.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1479,
+						"buffer_size": 63617,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								208,
-								208
+								15710,
+								15710
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2635.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scripts/mesh/face.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1228,
+								1228
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 537.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "scripts/extensions.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								919,
+								919
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "scripts/mesh/mesh.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22003,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2377,
+								2377
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 952.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								231
+							]
+						],
+						"settings":
+						{
+							"auto_name": "[0, 1, 2]",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1855,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								993,
+								993
 							]
 						],
 						"settings":
@@ -955,10 +1240,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 102.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -981,11 +1266,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.454617136848,
 			1.0
 		],
 		"rows":
@@ -997,7 +1289,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 98.0
+		"height": 340.0
 	},
 	"output.find_results":
 	{
@@ -1011,7 +1303,7 @@
 	"project": "subdivisionjs.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1045,7 +1337,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -1053,7 +1345,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 190.0,
+	"side_bar_width": 152.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

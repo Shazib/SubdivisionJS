@@ -77,7 +77,6 @@ define("helper", [], function() {
 	    alert("An error occured compiling shaders: " + gl.getShaderInfoLog(shader));
 	    return null;
 	  }
-	  console.log(theSource)
 	  return shader;
 
 	} // End load shader

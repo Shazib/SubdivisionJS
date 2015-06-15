@@ -61,6 +61,31 @@ define ("face", ["mesh", "vector"], function(Face, Vector) {
 
 			// Return face point vector
 			return averageOfVertPositions;
+		},
+
+		getCenter: function(mesh) {
+			// For every edge
+			var numEdges = this.edgeIndices.length;
+
+			// Temp var to calculate average
+			var sumOfVertPositions = new Vector();
+			var averageOfVertPositions = new Vector();
+			sumOfVertPositions.clear();
+			averageOfVertPositions.clear();
+
+			for (var ei = 0; ei < numEdges; ei++) {
+				var edgeIndex = this.edgeIndices[ei];
+				var edge = mesh.edges[edgeIndex];
+				var vector = edge.midpoint(mesh);
+
+
+				// Add them up
+				sumOfVertPositions.add(vector);
+			}
+			// Get average
+			averageOfVertPositions.overwriteWith(sumOfVertPositions)
+														.divideScalar(numEdges);
+			return averageOfVertPositions;
 		}
 
 	} // End prototype

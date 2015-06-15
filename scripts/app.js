@@ -86,7 +86,8 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       gui.add(control, 'y').name("Rotate Y");
       gui.add(control, 'z').name("Rotate Z");
       var subTracker = gui.add(control, 'numSubdivides', 0, 6).name("No. Subdivides").listen();
-      var meshTracker = gui.add(control, 'mesh', {Cube: 1, Cone: 2, Torus: 3, CubeTwo:4, Monkey: 5}).name("Mesh Type");
+      var meshTracker = gui.add(control, 'mesh', {Cube: 1, Cone: 2, Torus: 3, 
+        CubeTwo:4, Monkey: 5, Face: 6, Sphere: 7}).name("Mesh Type");
       
       subTracker.onFinishChange(function(value){
         reloadBuffers = true;
@@ -153,20 +154,28 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       var meshCube;
       if (control.mesh == 1){
-        meshCube = Models.cube();
+        meshCube = Models.monkey();//cube();//Two();//.doosabinSubdivide();
       } else if (control.mesh == 2) {
-        meshCube = Models.cone()
+        meshCube = Models.cone();
       } else if (control.mesh == 3) {
-        meshCube = Models.torus()
+        meshCube = Models.torus();
       } else if(control.mesh == 4) {
-        meshCube = Models.cubeTwo()
+        meshCube = Models.cubeTwo();
       } else if (control.mesh == 5) {
-        meshCube = Models.monkey()
+        meshCube = Models.monkey();
+      } else if (control.mesh == 6) {
+        meshCube = Models.face();
+      } else if (control.mesh == 7) {
+        meshCube = Models.sphere();
       }
 
       for (var i = 0; i < control.numSubdivides; i++) {
-        meshCube = meshCube.catmullSubdivide();
-      }
+      // meshCube = meshCube.catmullSubdivide();
+      // meshCube = meshCube.doosabinSubdivide();
+      
+      meshCube.fixEdges();
+     // meshCube = meshCube.doosabinSubdivide();
+    }
 
       // vertices of the cube
       var vertices = [];
@@ -195,9 +204,38 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       for (var c = 0; c < numVectors; c++) {
         wireframeColors.append(blackColor);
       }
+
+      var colors = [
+        [1.0,  1.0,  1.0,  1.0],    // Front face: white
+        [1.0,  0.0,  0.0,  1.0],    // Back face: red
+        [0.0,  1.0,  0.0,  1.0],    // Top face: green
+        [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
+        [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
+        [1.0,  0.0,  1.0,  1.0]     // Left face: purple
+      ];
       var modelColors = [];
-      for (var c = 0; c < meshCube.vertices.length; c++) {
-        modelColors.append(modelColor);
+      // var i = 0;
+      // for (var c = 0; c < meshCube.vertices.length; c++) {
+      //   modelColors.append(colors[i]);
+      //   i++;
+      //   if (i === 6) {
+      //     i = 0;
+      //   }
+      // }
+
+      // for every face
+      var a = 0;
+      for (var i = 0; i < meshCube.faces.length; i++) {
+        // For every vertex of the face
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);       
+          a++;
+          if (a === 6) {
+            a = 0;
+          }
+        
       }
 
       // cubeVecBuffer
@@ -261,7 +299,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       if (!firstRun) {
         mvMatrix = glm.mat4.create();
-        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -8.0]);
+        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -2.0]);
         glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);
 
         firstRun = true

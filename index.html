@@ -14,7 +14,7 @@
       void main(void) {
         highp vec4 res = vec4(vLighting, 1.0);
 
-        gl_FragColor = vec4(vColor * res);
+        gl_FragColor = vColor; //vec4(vColor * res);
       }
     </script>
     
@@ -48,7 +48,7 @@
         highp float directional = max(dot(transformedNormal.xyz, directionalVector), 1.0);
         vLighting = ambientLight + (directionalLightColor * directional);
 
-        gl_PointSize = 3.0;
+        gl_PointSize = 8.0;
       }
     </script>
 

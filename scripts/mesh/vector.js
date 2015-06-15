@@ -134,6 +134,14 @@ define ("vector", [], function() {
         return [this.x, this.y, this.z];
     },
 
+    // Check if two vectors are equal
+    isEqualTo: function(other) {
+    	if (this.x == other.x && this.y == other.y && this.z == other.z) {
+    		return true;
+    	}
+    	return false;
+    }
+
 	}; // End prototype
 
 	// Return reference to constructor

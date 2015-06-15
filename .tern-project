@@ -3,7 +3,8 @@
 
     "loadEagerly": [
         "scripts/app.js",
-        "*/**.js"
+        "*/**.js",
+        "scripts/mesh/*.js"
     ],
     "plugins": {
         "requirejs": {

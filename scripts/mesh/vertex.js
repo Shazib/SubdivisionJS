@@ -24,6 +24,8 @@ define ("vertex",["vector"], function(Vector) {
 		// Edge and face lists
 		this.edgeIndices = [];
 		this.faceIndices = [];
+		this.vertexIndicesForFace = [];
+		this.oldEdgeIndexes = [];
 	}
 
 	// Generic public constructor

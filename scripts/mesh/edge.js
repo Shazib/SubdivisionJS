@@ -22,6 +22,8 @@
  		// Create edge
  		this.vertexIndices = vertexIndices;
  		this.faceIndices = [];
+ 		this.vertexIndicesForFace = [];
+ 		this.oldVertexIndexes = [];
  	}
 
  	// Generic public constructor
@@ -81,6 +83,24 @@
  			averageOfVertPositions.overwriteWith(sumOfVertPositions)
  														.divideScalar(numVerts);
 
+ 			return averageOfVertPositions;
+ 		},
+
+ 		getSabinEdgePoint: function(mesh) {
+ 			var sumOfVertPositions = new Vector();
+ 			var averageOfVertPositions = new Vector();
+
+ 			// For every vertex index of the edge
+ 			for (var vi = 0; vi < this.vertexIndices.length; vi++) {
+ 				var vertexIndex = this.vertexIndices[vi];
+ 				var vertexVector = mesh.vertices[vertexIndex].vec;
+
+ 				// Add them
+ 				sumOfVertPositions.add(vertexVector);
+ 			}
+
+ 			averageOfVertPositions.overwriteWith(sumOfVertPositions)
+ 														.divideScalar(2);
  			return averageOfVertPositions;
  		},
 
