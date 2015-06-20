@@ -106,6 +106,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       var meshTracker = gui.add(control, 'mesh', {Cube: 1, Cone: 2, Torus: 3, 
         CubeTwo:4, Monkey: 5, Face: 6, Sphere: 7}).name("Mesh Type");
       var subScheme = gui.add(control, 'subScheme', { 'Catmull-Clark': 0, 'Doo-Sabin':1}).name("Subd Scheme");
+
       // Listeners to detect DAT.GUI changes
       subScheme.onFinishChange(function(value) {
         control.numSubdivides = 0;
@@ -121,7 +122,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
         control.posUpdated = false;
       });
 
-      //initWebGL(canvas);      // Initialize the GL context
+      // Initialize the GL context
       gl = Helper.initCanvas(canvas);
 
       // Only continue if WebGL is available and working
@@ -453,15 +454,5 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
         projection = 0.03
       }
     }
-
-
-
-
-
-
-
-
-
-
   });
 });
