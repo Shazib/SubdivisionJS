@@ -6,13 +6,17 @@
 - Add dynamic camera positioning
   - Scan obj files for largest xyz vals?
 - ~~Fullscreen canvas~~
-- Fix rotation
+- ~~Fix rotation~~
 
 - ~~Implement dat.gui~~
 - ~~Add more models~~
 - ~~Sudvidided square~~
 - ~~suzanna monkey~~
 
-- Add DooSabin subdivision
+- ~~Add DooSabin subdivision~~
 - Add Loop subdivision
+- Fix model edge problem
+- Stats.js
 
+- Projection? Matrix zooming
+- TouchScreen support

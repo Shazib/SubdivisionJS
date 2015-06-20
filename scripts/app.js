@@ -41,6 +41,8 @@ var modelRotationMatrix;
 var mouseDown = false;
 var lastMouseX = null;
 var lastMouseY = null;
+var projection = 0.0;
+var projectionMatrix;
 
 // Model matrices
 var mvMatrix;
@@ -54,7 +56,10 @@ var Controller = function() {
   this.numSubdivides = 0;
   this.mesh = 1;
   this.posUpdated = false;
+  this.wireframe = true;
+  this.subScheme = 0;
 }
+
 var control;
 var reloadBuffers = false;
 
@@ -73,30 +78,47 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       window.addEventListener('resize', resizeCanvas, false);
 
+      // Add mouse listeners
+      canvas.onmousedown = handleMouseDown;
+      document.onmouseup = handleMouseUp;
+      document.onmousemove = handleMouseMove;
+      canvas.addEventListener('mousewheel', handleMouseScroll, false);
+      canvas.addEventListener('DOMMouseScroll', handleMouseScroll, false);
+
+      document.onscroll = function() {
+        console.log("Scrolling");
+      }
+
       function resizeCanvas() {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
       }
 
-      // Init controller
+      // Init DAT.GUI Controller.
       control = new Controller();
       var gui = new dat.GUI();
-
+      // Add properties to DAT.GUI
       gui.add(control, 'x').name("Rotate X");
       gui.add(control, 'y').name("Rotate Y");
       gui.add(control, 'z').name("Rotate Z");
+      gui.add(control, "wireframe").name("Wireframe");
       var subTracker = gui.add(control, 'numSubdivides', 0, 6).name("No. Subdivides").listen();
       var meshTracker = gui.add(control, 'mesh', {Cube: 1, Cone: 2, Torus: 3, 
         CubeTwo:4, Monkey: 5, Face: 6, Sphere: 7}).name("Mesh Type");
+      var subScheme = gui.add(control, 'subScheme', { 'Catmull-Clark': 0, 'Doo-Sabin':1}).name("Subd Scheme");
+      // Listeners to detect DAT.GUI changes
+      subScheme.onFinishChange(function(value) {
+        control.numSubdivides = 0;
+        reloadBuffers = true;
+      })
       
-      subTracker.onFinishChange(function(value){
+      subTracker.onFinishChange(function(value) {
         reloadBuffers = true;
       });
-      meshTracker.onFinishChange(function(value){
+      meshTracker.onFinishChange(function(value) {
         control.numSubdivides = 0;
         reloadBuffers = true;
         control.posUpdated = false;
-
       });
 
       //initWebGL(canvas);      // Initialize the GL context
@@ -154,7 +176,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       var meshCube;
       if (control.mesh == 1){
-        meshCube = Models.monkey();//cube();//Two();//.doosabinSubdivide();
+        meshCube = Models.cube();
       } else if (control.mesh == 2) {
         meshCube = Models.cone();
       } else if (control.mesh == 3) {
@@ -170,12 +192,14 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       }
 
       for (var i = 0; i < control.numSubdivides; i++) {
-      // meshCube = meshCube.catmullSubdivide();
-      // meshCube = meshCube.doosabinSubdivide();
-      
-      meshCube.fixEdges();
-     // meshCube = meshCube.doosabinSubdivide();
-    }
+        if (control.subScheme == 0) {
+          console.log("Scheme is catmull");
+          meshCube = meshCube.catmullSubdivide();
+        } else if (control.subScheme == 1) {
+          console.log("scheme is doosabin");
+          meshCube = meshCube.doosabinSubdivide();
+        }
+      }
 
       // vertices of the cube
       var vertices = [];
@@ -277,10 +301,12 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
     var cubeRotation = 0;
     var lastCubeUpdateTime = 0;
     var firstRun = false;
-
+    modelRotationMatrix = glm.mat4.create();
+    glm.mat4.identity(modelRotationMatrix);
+    projectionMatrix = glm.mat4.create()
+    glm.mat4.identity(projectionMatrix);
     // Drawing the scene
     function drawScene() {
-
 
       if (reloadBuffers) {
         initBuffers();
@@ -293,20 +319,17 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       glm.mat4.perspective(perspectiveMatrix, Math.degToRad(45.0), canvas.width/canvas.height, 0.1, 100.0);
 
       gl.viewport(0, 0, canvas.width, canvas.height)
-      // Perform a translation on the MV matrix
-      // MV * Matrix.Translation(vector).exsure4x4
-
 
       if (!firstRun) {
         mvMatrix = glm.mat4.create();
-        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -2.0]);
+        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -6.0]);
         glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);
 
         firstRun = true
       }
       if (!control.posUpdated){
         if (control.mesh == 4) {
-          glm.mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, 0.0]);
+          glm.mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, -6.0]);
         }
         control.posUpdated = true;
       }
@@ -321,7 +344,11 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
         glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(3), [0, 0, 1]);
       }
 
-      modelRotationMatrix = glm.mat4.create();
+      //the projection matrix to webgl
+      //glm.mat4.ortho(projectionMatrix, -projection, projection, -projection, projection, 0.0, 0.0);
+
+      // Rotate the view
+      glm.mat4.multiply(mvMatrix, mvMatrix, modelRotationMatrix);
 
       // Normal matrix
       var normalMatrix = glm.mat4.create();
@@ -338,7 +365,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(vertexNormalAttribute)
 
-
+      /* Drawing the shape */
       // Bind vectors
       gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
       gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
@@ -352,16 +379,19 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       // Draw
       gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_SHORT, 0);
 
-      // Bind edge vectors
-      gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
-      gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-      gl.enableVertexAttribArray(vertexPositionAttribute)
-      // Bind colors
-      gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
-      gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-      gl.enableVertexAttribArray(vertexColorAttribute)
-      // Draw lines
-      gl.drawArrays(gl.LINES, 0, numVectors)
+      /* Drawing the wireframe */
+      if (control.wireframe) {
+        // Bind edge vectors
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
+        gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vertexPositionAttribute)
+        // Bind colors
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
+        gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vertexColorAttribute)
+        // Draw lines
+        gl.drawArrays(gl.LINES, 0, numVectors)
+      }
 
     }
 
@@ -373,6 +403,65 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       // set the model view matrix
       var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
       gl.uniformMatrix4fv(mvUniform, false, new Float32Array(mvMatrix));
+
+      // Set the projection matrix
+      // var projUniform = gl.getUniformLocation(shaderProgram, "uProjMatrix");
+      //  gl.uniformMatrix4fv(projUniform, false, new Float32Array(projectionMatrix));
     }
+
+    // Set the mouse down when pressed and set the x,y coords
+    function handleMouseDown(event) {
+      mouseDown = true;
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+      console.log("down")
+    }
+
+    // Handle mouse up
+    function handleMouseUp(event) {
+      mouseDown = false
+      glm.mat4.identity(modelRotationMatrix)
+    }
+
+    // Moving the model when mouse moves
+    function handleMouseMove(event) {
+      // Check left button pressed
+      if (!mouseDown) {
+        return;
+      }
+      var rot = 0;
+
+      rot = (Math.PI/5000) * (event.clientX - lastMouseX);
+      glm.mat4.rotateY(modelRotationMatrix, modelRotationMatrix, rot);
+
+      rot = (Math.PI/5000) * (event.clientY - lastMouseY);
+      glm.mat4.rotateX(modelRotationMatrix, modelRotationMatrix, rot);
+
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+    }
+
+    function handleMouseScroll(event) {
+      // Stop keeping track
+      event.preventDefault();
+      // Get value
+      var delta = event.detail? event.detail/(-3) : event.wheelDelta/(120); //Different web browsers
+      // Calculate projection value
+      projection -= (0.15*delta);
+      // Set projection limit
+      if (projection < 0.03) {
+        projection = 0.03
+      }
+    }
+
+
+
+
+
+
+
+
+
+
   });
 });

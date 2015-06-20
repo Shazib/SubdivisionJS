@@ -28,13 +28,14 @@
       uniform highp mat4 uNormalMatrix;
       uniform highp mat4 uMVMatrix;
       uniform highp mat4 uPMatrix;
+     // uniform highp mat4 uProjMatrix;
       
       varying highp vec4 vColor;
       varying highp vec3 vLighting;
     
       void main(void) {
 
-        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        gl_Position =  uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         vColor = aVertexColor;
 
         // Apply lighting
