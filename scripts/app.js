@@ -16,6 +16,8 @@ requirejs.config({
 // globals objects
 var canvas;
 var gl;
+var originalTxt;
+var currentTxt;
 //var GUI = require('scripts/libs/dat.gui.min.js')
 
 // Model data buffers
@@ -25,6 +27,7 @@ var modelVecIndexBuffer;
 var modelVecNormalBuffer
 var modelWireBuffer;
 var modelWireColorBuffer;
+var tex;
 
 // Model data counts
 var numElements;
@@ -64,8 +67,8 @@ var control;
 var reloadBuffers = false;
 
 
-require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'], 
-	function(domReady, Extension, Models, Mesh, Helper, glm) {
+require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm', 'vector'], 
+	function(domReady, Extension, Models, Mesh, Helper, glm, Vector) {
 
 	domReady(function() {
       
@@ -97,6 +100,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       // Init DAT.GUI Controller.
       control = new Controller();
       var gui = new dat.GUI();
+
       // Add properties to DAT.GUI
       gui.add(control, 'x').name("Rotate X");
       gui.add(control, 'y').name("Rotate Y");
@@ -127,7 +131,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       // Only continue if WebGL is available and working
       if (gl) {
-        gl.clearColor(0.31, 0.58, 0.8, 1.0);  // Clear to black, fully opaque
+        gl.clearColor(0.20, 0.25, 0.32, 1.0);  // Clear to black, fully opaque
         gl.clearDepth(1.0);                 // Clear everything
         gl.enable(gl.DEPTH_TEST);           // Enable depth testing
         gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
@@ -170,26 +174,45 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
 
       vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
       gl.enableVertexAttribArray(vertexColorAttribute);
+
+      vertexNormalAttribute = gl.getUniformLocation(shaderProgram, "aVertexNormal")
+     
+      shaderProgram.ambientColorUniform = gl.getUniformLocation(shaderProgram, "uAmbientColor");
+      shaderProgram.lightingDirectionUniform = gl.getUniformLocation(shaderProgram, "uLightingDirection");
+      shaderProgram.directionalColorUniform = gl.getUniformLocation(shaderProgram, "uDirectionalColor");
+      shaderProgram.nMatrixUniform = gl.getUniformLocation(shaderProgram, "uNMatrix");
+      
+      shaderProgram.pointLightingLocationUniform = gl.getUniformLocation(shaderProgram, "uPointLightingLocation");
+      shaderProgram.pointLightingColorUniform = gl.getUniformLocation(shaderProgram, "uPointLightingColor");
+
+
     }
 
     // Creating the buffers to contain the vertices
     function initBuffers() {
 
-      var meshCube;
+      var meshCube, originalVerts;
       if (control.mesh == 1){
         meshCube = Models.cube();
+        originalVerts = meshCube.vertices.length;
       } else if (control.mesh == 2) {
         meshCube = Models.cone();
+        originalVerts = meshCube.vertices.length;
       } else if (control.mesh == 3) {
         meshCube = Models.torus();
+        originalVerts = meshCube.vertices.length;
       } else if(control.mesh == 4) {
         meshCube = Models.cubeTwo();
+        originalVerts = meshCube.vertices.length;
       } else if (control.mesh == 5) {
         meshCube = Models.monkey();
+        originalVerts = meshCube.vertices.length;
       } else if (control.mesh == 6) {
         meshCube = Models.face();
+        originalVerts = meshCube.vertices.length;
       } else if (control.mesh == 7) {
         meshCube = Models.sphere();
+        originalVerts = meshCube.vertices.length;
       }
 
       for (var i = 0; i < control.numSubdivides; i++) {
@@ -205,7 +228,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       // vertices of the cube
       var vertices = [];
       vertices = meshCube.vectorArray();
-
+      console.log(vertices);
       // get the index array
       var vectorIndex = [];
       vectorIndex = meshCube.elementArray();
@@ -234,33 +257,20 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
         [1.0,  1.0,  1.0,  1.0],    // Front face: white
         [1.0,  0.0,  0.0,  1.0],    // Back face: red
         [0.0,  1.0,  0.0,  1.0],    // Top face: green
-        [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
+        [0.2,  0.6,  0.8],    // Bottom face: blue
         [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
         [1.0,  0.0,  1.0,  1.0]     // Left face: purple
       ];
       var modelColors = [];
-      // var i = 0;
-      // for (var c = 0; c < meshCube.vertices.length; c++) {
-      //   modelColors.append(colors[i]);
-      //   i++;
-      //   if (i === 6) {
-      //     i = 0;
-      //   }
-      // }
 
       // for every face
-      var a = 0;
+      var a =3;
       for (var i = 0; i < meshCube.faces.length; i++) {
         // For every vertex of the face
           modelColors.append(colors[a]);
           modelColors.append(colors[a]);
           modelColors.append(colors[a]);
           modelColors.append(colors[a]);       
-          a++;
-          if (a === 6) {
-            a = 0;
-          }
-        
       }
 
       // cubeVecBuffer
@@ -288,15 +298,17 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeColors), gl.STATIC_DRAW);
     
-      // Lighting buffer
-      var vertexNormals = []
-      for (var i = 0; i < meshCube.vertices.length; i++) {
-        vertexNormals.append(meshCube.vertices[i].vec.normalise());
-      }
+
+      var vertexNormals = meshCube.normalArray();
       // Bind lighting normals buffer
       modelVecNormalBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, modelVecNormalBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
+      console.log(vertexNormals);
+
+      // Set up the data
+      document.getElementById("originalTxt").innerHTML = "Original Vertices: " + originalVerts
+      document.getElementById("currentTxt").innerHTML = "Current Vertices: " + meshCube.vertices.length;
     }
 
     var cubeRotation = 0;
@@ -312,6 +324,7 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       if (reloadBuffers) {
         initBuffers();
         reloadBuffers = false;
+        firstLoad = false;
       }
 
       gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
@@ -324,13 +337,13 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       if (!firstRun) {
         mvMatrix = glm.mat4.create();
         glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -6.0]);
-        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);
-
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(140), [1, 0, 1]);
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(-50), [0, 1, 0]);
         firstRun = true
       }
       if (!control.posUpdated){
         if (control.mesh == 4) {
-          glm.mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, -6.0]);
+          glm.mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, -3.0]);
         }
         control.posUpdated = true;
       }
@@ -344,37 +357,38 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       if (control.z) {
         glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(3), [0, 0, 1]);
       }
-
-      //the projection matrix to webgl
-      //glm.mat4.ortho(projectionMatrix, -projection, projection, -projection, projection, 0.0, 0.0);
-
       // Rotate the view
       glm.mat4.multiply(mvMatrix, mvMatrix, modelRotationMatrix);
 
-      // Normal matrix
-      var normalMatrix = glm.mat4.create();
-      glm.mat4.invert(normalMatrix, mvMatrix);
-      glm.mat4.transpose(normalMatrix, normalMatrix);
-      var nUniform = gl.getUniformLocation(shaderProgram, "uNormalMatrix")
-      gl.uniformMatrix4fv(nUniform, false, new Float32Array(normalMatrix));
-
-
       setMatrixUniforms();
-      
+
+      /* Lighting */
       // Bind vertex normals to shader attribute
       gl.bindBuffer(gl.ARRAY_BUFFER, modelVecNormalBuffer);
       gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(vertexNormalAttribute)
+
+      gl.uniform3f(
+        shaderProgram.ambientColorUniform,
+        1.0, 
+        0.5, 
+        0.5 
+      );
+
+      gl.uniform3f(shaderProgram.pointLightingLocationUniform, -3.0, -3.0, -15.0);
+      gl.uniform3f(shaderProgram.pointLightingColorUniform, 1, 0, 0);
 
       /* Drawing the shape */
       // Bind vectors
       gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
       gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(vertexPositionAttribute)
+
       // Bind colors
       gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);
-      gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
+      gl.vertexAttribPointer(vertexColorAttribute, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(vertexColorAttribute)
+
       // Bind element array
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);
       // Draw
@@ -405,9 +419,13 @@ require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'],
       var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
       gl.uniformMatrix4fv(mvUniform, false, new Float32Array(mvMatrix));
 
-      // Set the projection matrix
-      // var projUniform = gl.getUniformLocation(shaderProgram, "uProjMatrix");
-      //  gl.uniformMatrix4fv(projUniform, false, new Float32Array(projectionMatrix));
+      // Normal matrix
+      var normalMatrix = glm.mat3.create();
+      //glm.mat4.toInverseMat3(mvMatrix, normalMatrix);
+      glm.mat3.fromMat4(normalMatrix, mvMatrix);
+      glm.mat3.invert(normalMatrix, normalMatrix);
+      glm.mat3.transpose(normalMatrix, normalMatrix);
+      gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
     }
 
     // Set the mouse down when pressed and set the x,y coords
