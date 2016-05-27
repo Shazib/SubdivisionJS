@@ -472,7 +472,7 @@ define ("models", ["mesh", "vertex", "vector"], function(Mesh, Vertex, Vector) {
         [35,8,40],
         [38,41,11],
         [38,36,41],
-        [36,9,3]
+        [36,41,9]
       ]
     );
   }

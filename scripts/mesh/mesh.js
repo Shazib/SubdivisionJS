@@ -10,8 +10,8 @@
  */
 
 // Load dependancies
-define ("mesh", ["vector", "vertex", "edge", "face", "models"], 
-  function(Vector, Vertex, Edge, Face, Models) {
+define ("mesh", ["vector", "vertex", "edge", "face", "models", "glm"], 
+  function(Vector, Vertex, Edge, Face, Models, glm) {
   "use strict";
 
   // Class constructor
@@ -20,129 +20,125 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
   // vertexIndicesForFaces = 2d array assigning the vertexes to faces
   function Mesh(name, vertices, vertexIndicesForFaces) {
 
-  // Name of mesh
-  this.name = name;
-  // Array of mesh vertices
-  this.vertices = vertices;
-  // Array of mesh faces
-  this.faces = [];
-  // Array of mesh edges
-  this.edges = [];
+    // Name of mesh
+    this.name = name;
+    // Array of mesh vertices
+    this.vertices = vertices;
+    // Array of mesh faces
+    this.faces = [];
+    // Array of mesh edges
+    this.edges = [];
     // Array of face points (helper)
     this.facePoints;
 
-  var vertexIndicesMinMaxToEdgeIndexLoopup = [];
-  // Generate mesh faces
-  for (var f = 0; f < vertexIndicesForFaces.length; f++) {
-    // Array of vertices for this face
-    var vertexIndicesForFace = vertexIndicesForFaces[f];
+    var vertexIndicesMinMaxToEdgeIndexLoopup = [];
+    // Generate mesh faces
+    for (var f = 0; f < vertexIndicesForFaces.length; f++) {
+      // Array of vertices for this face
+      var vertexIndicesForFace = vertexIndicesForFaces[f];
 
-    // New face with its vertex indexes
-    var face = new Face(vertexIndicesForFace);
+      // New face with its vertex indexes
+      var face = new Face(vertexIndicesForFace);
 
-    // number of vertices in face
-    var numVertsInFace = vertexIndicesForFace.length;
-    // For each vertex in the face
+      // number of vertices in face
+      var numVertsInFace = vertexIndicesForFace.length;
+      // For each vertex in the face
 
-    for (var vi = 0; vi < numVertsInFace; vi++) {
-      // Get the first two vertex indices of the face
-      var viNext = (vi + 1) % numVertsInFace;
+      for (var vi = 0; vi < numVertsInFace; vi++) {
+        // Get the first two vertex indices of the face
+        var viNext = (vi + 1) % numVertsInFace;
 
-      // Get the indexes from the faces index array
-      var vertIndex = vertexIndicesForFace[vi];
-      var vertIndexNext = vertexIndicesForFace[viNext];
+        // Get the indexes from the faces index array
+        var vertIndex = vertexIndicesForFace[vi];
+        var vertIndexNext = vertexIndicesForFace[viNext];
 
-      // Get the actual vertices from the Meshes array
-      var vert = this.vertices[vertIndex];
-      var vertNext = this.vertices[vertIndexNext];
+        // Get the actual vertices from the Meshes array
+        var vert = this.vertices[vertIndex];
+        var vertNext = this.vertices[vertIndexNext];
 
-      // This face belongs to the vertex as well as 
-      // the vertex belonging to this face. 
-      // So now update the vertex's index lists
-      vert.faceIndices.push(f);
+        // This face belongs to the vertex as well as 
+        // the vertex belonging to this face. 
+        // So now update the vertex's index lists
+        vert.faceIndices.push(f);
 
-      // These two vertices make an edge also,
-      // Get the larger index value of the two vertices 
-      var vertIndexMax = Math.max(vertIndex, vertIndexNext);
-      var vertIndexMin = Math.min(vertIndex, vertIndexNext);
+        // These two vertices make an edge also,
+        // Get the larger index value of the two vertices 
+        var vertIndexMax = Math.max(vertIndex, vertIndexNext);
+        var vertIndexMin = Math.min(vertIndex, vertIndexNext);
 
-      // Try to get the index of the edge
-      var vertIndexMaxToEdgeIndexLookup = 
-        vertexIndicesMinMaxToEdgeIndexLoopup[vertIndexMin];
+        // Try to get the index of the edge
+        var vertIndexMaxToEdgeIndexLookup = 
+          vertexIndicesMinMaxToEdgeIndexLoopup[vertIndexMin];
 
-      // If no index of the edge 
-      if (vertIndexMaxToEdgeIndexLookup == null) {
-        // Clean array
-        vertIndexMaxToEdgeIndexLookup = [];
-        // Clean main array
-        vertexIndicesMinMaxToEdgeIndexLoopup[vertIndexMin] =
-        vertIndexMaxToEdgeIndexLookup;
-      }
+        // If no index of the edge 
+        if (vertIndexMaxToEdgeIndexLookup == null) {
+          // Clean array
+          vertIndexMaxToEdgeIndexLookup = [];
+          // Clean main array
+          vertexIndicesMinMaxToEdgeIndexLoopup[vertIndexMin] =
+          vertIndexMaxToEdgeIndexLookup;
+        }
 
-      // Get edge index
-      var edgeIndex = vertIndexMaxToEdgeIndexLookup[vertIndexMax];
+        // Get edge index
+        var edgeIndex = vertIndexMaxToEdgeIndexLookup[vertIndexMax];
 
-      // If index doesnt exist
-      if (edgeIndex == null) {
-        // Create a new edge and add it to the meshes array of edges
-        var edge = new Edge([vertIndexMin, vertIndexMax]);
-        edgeIndex = this.edges.length; // index in the end of the array
-        this.edges.push(edge);
-      }
+        // If index doesnt exist
+        if (edgeIndex == null) {
+          // Create a new edge and add it to the meshes array of edges
+          var edge = new Edge([vertIndexMin, vertIndexMax]);
+          edgeIndex = this.edges.length; // index in the end of the array
+          this.edges.push(edge);
+        }
 
-      // Now add the index of this edge in the main array
-      // to the Face object. So it knows all its edges
-      vertIndexMaxToEdgeIndexLookup[vertIndexMax] = edgeIndex;
+        // Now add the index of this edge in the main array
+        // to the Face object. So it knows all its edges
+        vertIndexMaxToEdgeIndexLookup[vertIndexMax] = edgeIndex;
 
-      // If not already in the array 
-      if (face.edgeIndices.indexOf(edgeIndex) == -1) {
-        face.edgeIndices.push(edgeIndex);
-      }
+        // If not already in the array 
+        if (face.edgeIndices.indexOf(edgeIndex) == -1) {
+          face.edgeIndices.push(edgeIndex);
+        }
+      } // End of for each vertex in face
 
-    } // End of for each vertex in face
+      for (var ei = 0; ei < face.edgeIndices.length; ei++) {
+        // Get location of edge in main array
+        var edgeIndex = face.edgeIndices[ei];
+        // Get edge from main array
+        var edge = this.edges[edgeIndex];
+        // Each edge must know its assocciated faces
+        // Add the face to the edge
+        edge.faceIndices.push(f);
 
+        // For each vertex of the edge
 
-    for (var ei = 0; ei < face.edgeIndices.length; ei++) {
-      // Get location of edge in main array
-      var edgeIndex = face.edgeIndices[ei];
-      // Get edge from main array
-      var edge = this.edges[edgeIndex];
-      // Each edge must know its assocciated faces
-      // Add the face to the edge
-      edge.faceIndices.push(f);
+        for (var vi = 0; vi < edge.vertexIndices.length; vi++) {
+          // Get the vertex index in main array
+          var vertexIndex = edge.vertexIndices[vi];
+          // Get the actual vertex from main array
+          var vertex = this.vertices[vertexIndex];
 
-      // For each vertex of the edge
-
-      for (var vi = 0; vi < edge.vertexIndices.length; vi++) {
-        // Get the vertex index in main array
-        var vertexIndex = edge.vertexIndices[vi];
-        // Get the actual vertex from main array
-        var vertex = this.vertices[vertexIndex];
-
-        // Each vertex needs to know its edges
-        // Add the edge to the vertices
-        if (vertex.edgeIndices.indexOf(edgeIndex) == -1) {
-        vertex.edgeIndices.push(edgeIndex);
+          // Each vertex needs to know its edges
+          // Add the edge to the vertices
+          if (vertex.edgeIndices.indexOf(edgeIndex) == -1) {
+          vertex.edgeIndices.push(edgeIndex);
+          }
         }
       }
-    }
-
-    // Add the face to the model
-    this.faces.push(face)
-
-  } // End mesh faces
-
+      // Add the face to the model
+      this.faces.push(face)
+    } // End mesh faces
+      // for (var e = 0; e < this.edges.length; e++) {
+      //   console.log(this.edges[e].faceIndices.length);
+      // }
   } // End constructor
-
-  // Generic public constructor?
 
   // Prototype
   Mesh.prototype = {
-  // repoint the constructor for prototype definition
-  constructor: Mesh,
+    // repoint the constructor for prototype definition
+    constructor: Mesh,
 
-  // Catmull Clark subdivision method
-  catmullSubdivide: function() {
+    // Catmull Clark subdivision method
+    catmullSubdivide: function() {
       // Catmull Clark subdivision of mesh
       var numberOfFacesOriginal = this.faces.length;
       var numberOfEdgesOriginal = this.edges.length;
@@ -157,8 +153,8 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
       // For every face (Generate face points)
       for (var f = 0; f < numberOfFacesOriginal; f++) {
         facePoints.push(this.faces[f].getFacePoint(this).clone());
-
       } // End of for each face
+
       this.facePoints = facePoints;
 
       // For each edge (generate edge points)
@@ -378,8 +374,55 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
       var vertices = [];
       // for each vertex
       for (var vi = 0; vi < this.vertices.length; vi++) {
-      // Get elements of vector
-      vertices.append(this.vertices[vi].vec.getElements());
+        // Get elements of vector
+        vertices.append(this.vertices[vi].vec.getElements());
+      }
+      // For every face add the face point to the vector array
+      for (var f = 0; f < this.faces.length; f++){
+        // Get face
+        var face = this.faces[f];
+        // If 6 sided
+        if (face.vertexIndices.length > 4) {
+          // Get facepoint
+          var facePoint = face.getFacePoint(this);
+          // Add To array
+          console.log("6 sided", facePoint.getElements());
+          vertices.append(facePoint.getElements());
+          // Add the index to face
+          face.facePointIndex = vertices.length - 1;
+          console.log(face.facePointIndex, vertices.length);
+        }
+
+      }
+      return vertices;
+    },
+
+    normalArray: function() {
+      var vertices = [];
+
+      // For each vertex
+      for (var vi = 0; vi < this.vertices.length; vi++) {
+        // Get elements of vector
+
+        //vertices.append(this.vertices[vi].vec.normalise().getElements());
+
+        var values = this.vertices[vi].vec.getElements();
+        //console.log(values);
+        var vec = glm.vec3.create();
+        vec = values;
+        console.log(vec)
+        glm.vec3.normalize(vec, vec);
+        vertices.append(vec);
+      }
+      // For every face
+      for (var f = 0; f < this.faces.length; f++){
+        // Get face
+        var face = this.faces[f];
+        // If 6 sided
+        if (face.vertexIndices.length > 4) {
+          // Get facepoint
+          vertices.append(face.getFacePoint(this).normalise().getElements());
+        }
       }
       return vertices;
     },
@@ -389,30 +432,51 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
       var vertices = [];
       // For each face 
       for (var f = 0; f < this.faces.length; f++) {
-        // Get the four vertex indexes
-        if (this.faces[f].vertexIndices.length == 3) {
+
+        // If there are 3 sides to the face
+        if (this.faces[f].vertexIndices.length === 3) {
+
           // Push those 3
           var v0 = this.faces[f].vertexIndices[0];
           var v1 = this.faces[f].vertexIndices[1];
           var v2 = this.faces[f].vertexIndices[2];
+
           vertices.push(v0)
           vertices.push(v1)
           vertices.push(v2) // Triangle 1
-        } else {
+
+        } else if (this.faces[f].vertexIndices.length === 4) {
+
           var v0 = this.faces[f].vertexIndices[0];
           var v1 = this.faces[f].vertexIndices[1];
           var v2 = this.faces[f].vertexIndices[2];
           var v3 = this.faces[f].vertexIndices[3];
-
-
           // Add them in a 3/3 fashion for two triangles
-          vertices.push(v0)
-          vertices.push(v1)
-          vertices.push(v2) // Triangle 1
+          vertices.push(v0);
+          vertices.push(v1);
+          vertices.push(v2); // Triangle 1
+          vertices.push(v0);
+          vertices.push(v2);
+          vertices.push(v3); // Triangle 2 
+        
+        } else if (this.faces[f].vertexIndices.length === 6) {
+          console.log("Is Hexagon");
+          // IF HEXAGON
+          var face = this.faces[f];
 
-          vertices.push(v0)
-          vertices.push(v2)
-          vertices.push(v3) // Triangle 2 
+          // Get the facepoint index
+          var faceIndex = face.facePointIndex;
+          console.log(face.edgeIndices.length);
+          // For every edge
+          for (var e = 0; e < face.edgeIndices.length; e++) {
+            // Get the edge
+            var edge = this.edges[face.edgeIndices[e]];
+            // Get the two vector indexes of the edge
+            // vertices.push(edge.vertexIndices[0]);
+            // vertices.push(edge.vertexIndices[1]);
+            // vertices.push(faceIndex);
+
+          }
         }
       }
       return vertices;
@@ -490,8 +554,8 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
           // Add the index to the face for the vertex
           vertex.vertexIndicesForFace.push(vertIndex);
           // Save the edge indexes to the vertex
-          vertex.oldEdgeIndexes.push(edgeIndex);
-          vertex.oldEdgeIndexes.push(edgeIndexTwo);
+          vertex.oldEdgeIndexes.push([edgeIndex, edgeIndexTwo]);
+          //vertex.oldEdgeIndexes.push(edgeIndexTwo);
           // Increment index;
           vertIndex++;
         }
@@ -502,16 +566,14 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
 
       // Now generate the face for every edge
       // Which should have 4 points
-     // console.log(this.edges.length);
+      // console.log(this.edges.length);
+
       for (var e = 0; e < this.edges.length; e++) {
         var edge = this.edges[e];
-
-        //var indexes = edge.vertexIndicesForFace;
 
         if (edge.faceIndices.length == 1) {
           //
         }
-
         // old vertex index 1 != 2
         else if (edge.oldVertexIndexes[1] != edge.oldVertexIndexes[2]) {
           var indexes =  [
@@ -526,92 +588,92 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
         }
       }
 
+     console.log(this.vertices.length);
 
-      console.log(this.vertices.length);
-      // Now generate the face for every vertex
+      // FOR EVERY VERTEX 
       for (var v = 0; v < this.vertices.length; v++) {
+       // console.log("Vertex: ", v );
+        // GET THE VERTEX
         var vertex = this.vertices[v];
-          // If 4 sided 
-          if (vertex.vertexIndicesForFace.length == 4) {
 
-            // If egdes 4 or 5 are equal to 0 or 1
-            if (
-                vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[4] ||
-                vertex.oldEdgeIndexes[0] == vertex.oldEdgeIndexes[5] ||
-                vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[4] ||
-                vertex.oldEdgeIndexes[1] == vertex.oldEdgeIndexes[5] 
-              )
-            {
-             // console.log("not equal");
+        // ARRAY OF EDGE INDEXES
+        var oldEdgeIndexes = vertex.oldEdgeIndexes;
 
-              // Save first value -> assume always correct
-              var edges = vertex.oldEdgeIndexes;
+        // ARRAY OF VERTEX INDEXES
+        var oldVertexIndexes = vertex.vertexIndicesForFace;
 
-              var finalEdges = [
-                [edges[0], edges[1], vertex.vertexIndicesForFace[0]]
-              ];
+        // IF THREE SIDED, DO NOTHING
+        // if (vertex.vertexIndicesForFace.length ==  3) {
+        //   console.log("Three");
+        //   vertexIndicesForFaces.push(vertex.vertexIndicesForFace);
+        //   continue;
+        // } 
+        //console.log("Longer than 3");
+        // NEW ARRAYS
+        var newEdgeIndexes = [];
+        var newVertexIndexes = [];
 
-              var newEdges = [
-                [edges[2],edges[3], vertex.vertexIndicesForFace[1]], // 0
-                [edges[4],edges[5], vertex.vertexIndicesForFace[2]], // 1
-                [edges[6],edges[7], vertex.vertexIndicesForFace[3]]  // 2
-              ];
+        // ADD THE FIRST ONES TO NEW ARRAYS
+        newVertexIndexes.push(oldVertexIndexes[0]);
+        newEdgeIndexes.push(oldEdgeIndexes[0]);
 
-              var tracker = 0;
-              for (var i = 0; i < newEdges.length; i++) {
-                if (finalEdges.last()[1] == newEdges[i][0]) {
+        // REMOVE FIRST ONES
+        oldVertexIndexes.splice(0,1);
+        oldEdgeIndexes.splice(0,1);
 
-                  finalEdges.push(newEdges[i]);
-                  newEdges.splice(i, 1);
-                  tracker = 1;
-                  break;
-                }
-                if (finalEdges.last()[1] == newEdges[i][1]) {
+        // DO WHILE LOOP TO KEEP ADDING TO THE NEW ARRAY 
+        // AND KEEP REMOVING FROM THE OLD ARRAY
+        var tracker = 1;
+        do {
 
-                  finalEdges.push(newEdges[i]);
-                  newEdges.splice(i, 1);
-                  tracker = 0;
-                  break;
-                }
-              }
+          // GET THE CURRENT NEW EDGE
+          var edgeIndex = newEdgeIndexes.last()
 
-              for (var i = 0; i < newEdges.length; i++) {
-                if (finalEdges.last()[tracker] == newEdges[i][0]) {
+          // FOR LOOP THROUGH ALL REMAINING OLD EDGES
+          for (var i = 0; i < oldEdgeIndexes.length; i++) {
+            // CHECK IF CURRENT INDEX [1] == THIS INDEX [0]s
+            if (edgeIndex[tracker] == oldEdgeIndexes[i][0]) {
+              //console.log("matched");
+              // ADD TO EDGE INDEXES
+              newEdgeIndexes.push(oldEdgeIndexes[i])
+              // ADD VERTEX INDEX
+              newVertexIndexes.push(oldVertexIndexes[i])
 
-                  finalEdges.push(newEdges[i]);
-                  newEdges.splice(i, 1);
-                  break;
-                }
-                 if (finalEdges.last()[tracker] == newEdges[i][1]) {
+              // DELETE FROM OLD ARRAYS
+              oldVertexIndexes.splice(i,1);
+              oldEdgeIndexes.splice(i,1);
 
-                  finalEdges.push(newEdges[i]);
-                  newEdges.splice(i, 1);
-                  break;
-                }               
-              }
-              // Add the last
-              finalEdges.push(newEdges.last());
+              // SET TRACKER VAR FOR NEXT edgeIndex
+              tracker = 1
 
-              // Push the edges
-              vertexIndicesForFaces.push([
-                finalEdges[0][2],
-                finalEdges[1][2],
-                finalEdges[2][2],
-                finalEdges[3][2],
-              ]);
-              
-            } else {
-             // console.log("equal");
-              vertexIndicesForFaces.push(vertex.vertexIndicesForFace)
+              // BREAK OUT OF FOR LOOP
+              break;
+            } 
+            if (edgeIndex[tracker] == oldEdgeIndexes[i][1]) {
+              // ADD TO EDGE INDEXES
+              newEdgeIndexes.push(oldEdgeIndexes[i])
+              // ADD VERTEX INDEX
+              newVertexIndexes.push(oldVertexIndexes[i])
+
+              // DELETE FROM OLD ARRAYS
+              oldVertexIndexes.splice(i,1);
+              oldEdgeIndexes.splice(i,1);
+
+              // SET TRACKER VAR FOR NEXT edgeIndex
+              tracker = 0
+
+              // BREAK OUT OF FOR LOOP
+              break;
             }
-        } 
-        // For 3 sided faces, push anyway
-        else {
-         // console.log("3 sides");
-          vertexIndicesForFaces.push(vertex.vertexIndicesForFace)
-        }
-      }
+          }
+        } while (oldEdgeIndexes.length > 0);
+        // WHILE LENGTH > 0
 
+        //console.log(newEdgeIndexes)
+
+        // ADD VERTEX INDEXES 
+        vertexIndicesForFaces.push(newVertexIndexes);
+      }
       // Return the new mesh
       var returnValue = new Mesh
       (
@@ -626,14 +688,10 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
     // Fix edge faces 
     fixEdges: function() {
 
-     // console.log("fixing edges");
-     // console.log(this.faces.length);
-      // console.log("num edges: ", this.edges.length)
-
       for (var ei = 0; ei < this.edges.length; ei++) {
         var edge = this.edges[ei];
         //console.log(edge.faceIndices.length);
-        console.log(edge.faceIndices);
+        //console.log(edge.faceIndices);
       } 
 
       // var i = 0;
@@ -663,10 +721,6 @@ define ("mesh", ["vector", "vertex", "edge", "face", "models"],
 
       //   // }
       // }
-
-
-
-
     }
 
 

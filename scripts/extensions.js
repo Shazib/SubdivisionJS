@@ -26,7 +26,7 @@ define([], function() {
         return -1;
     }
 
-    /// Method for getting last  value in array
+    // Method for getting last  value in array
     Array.prototype.last = function() {
         return this[this.length - 1];
     }
@@ -41,15 +41,11 @@ define([], function() {
         };
     }
 
-
     // Extend math
     Math.degToRad = function(deg) {
 		var res = deg * Math.PI / 180.0;
 		return res;
     }
-
-
-
 
 
 }); // End defines

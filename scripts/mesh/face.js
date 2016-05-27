@@ -19,6 +19,7 @@ define ("face", ["mesh", "vector"], function(Face, Vector) {
 		this.vertexIndices = vertexIndices;
 		// Array of edge indexes in main array
 		this.edgeIndices = []; 
+		this.facePointIndex = 0;
 	}
 
 	// Generic public constructor 

@@ -30,7 +30,7 @@ define ("vector", [], function() {
 	}
 
 	Vector.prototype = {
-		// Repoint the constrctor for prototype redefine
+		// Repoint the constructor for prototype redefine
 		constructor: Vector,
 
 		// Add a vector to this vector
