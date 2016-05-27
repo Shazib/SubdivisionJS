@@ -1,35 +1,62 @@
 <html>
   <head>
     <title>WebGL Demo</title>
+    <link rel="stylesheet" href="style.css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script data-main="scripts/app" src="bower_components/requirejs/require.js"></script>
-
-
+    <script src="scripts/libs/dat.gui.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- Fragment shader program -->
 
     <script id="shader-fs" type="x-shader/x-fragment">
-      varying lowp vec4 vColor;
-      
+      varying highp vec3 vColor;
+      varying highp vec3 vLightWeighting;
+
       void main(void) {
-        gl_FragColor = vColor;
+        gl_FragColor = vec4(vColor, 1.0); //vec4(vColor * vLightWeighting, 1.0);
       }
+
+
+
     </script>
     
     <!-- Vertex shader program -->
     
     <script id="shader-vs" type="x-shader/x-vertex">
       attribute vec3 aVertexPosition;
-      attribute vec4 aVertexColor;
+      attribute vec3 aVertexColor;
+      attribute vec3 aVertexNormal;
     
-      uniform mat4 uMVMatrix;
-      uniform mat4 uPMatrix;
+      uniform highp mat3 uNMatrix;
+      uniform highp mat4 uMVMatrix;
+      uniform highp mat4 uPMatrix;
       
-      varying lowp vec4 vColor;
+      varying highp vec3 vColor;
+      varying vec3 vLightWeighting;
+
+      uniform vec3 uAmbientColor;
+
+
+      uniform vec3 uPointLightingLocation;
+      uniform vec3 uPointLightingColor;
     
       void main(void) {
-        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+
         vColor = aVertexColor;
-        gl_PointSize = 3.0;
+        gl_PointSize = 8.0;
+
+        vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+        gl_Position = uPMatrix * mvPosition;
+
+        // Lighting
+        vec3 lightDirection = normalize(uPointLightingLocation - mvPosition.xyz);
+
+        vec3 transformedNormal = uNMatrix * aVertexNormal;
+        float directionalLightWeighting = max(dot(transformedNormal, lightDirection), 0.0);
+        vLightWeighting = uAmbientColor + uPointLightingColor * directionalLightWeighting;
+
+       //vLightWeighting = uPointLightcolor * directionalLightWeighting;
+
       }
     </script>
 
@@ -37,17 +64,12 @@
   </head>
   
   <body>
-    <canvas id="glcanvas" width="840" height="680">
+    <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
-  </br>
-    <input type ="range" id="myRange" min="1" max="5"> Angle Of Rotation </input> </br>
-    <input type="checkbox" id="x"> X Axis</input>
-    <input type="checkbox" id="y"> Y Axis</input>
-    <input type="checkbox" id="z"> Z Axis</input>
-    </br></br>
-    <b> Subdivide </b>
-    <input type="button" value="Backward" id="back"></input>
-    <input type="button" value="Forward" id="sub"></input>
+    <div id="btmTxt">
+      <h1 id="originalTxt">Original Vertices</h1>
+      <h1 id = "currentTxt">Current Vertices </h1>
+    </div>
   </body>
 </html>

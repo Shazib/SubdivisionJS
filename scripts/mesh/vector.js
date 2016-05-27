@@ -30,7 +30,7 @@ define ("vector", [], function() {
 	}
 
 	Vector.prototype = {
-		// Repoint the constrctor for prototype redefine
+		// Repoint the constructor for prototype redefine
 		constructor: Vector,
 
 		// Add a vector to this vector
@@ -99,7 +99,7 @@ define ("vector", [], function() {
 
 		// Normalise
 		normalise: function() {
-			return this.divideScaler(this.magnitude());
+			return this.divideScalar(this.magnitude());
 		},
 
 		// Overwrite this vector object with another
@@ -133,6 +133,14 @@ define ("vector", [], function() {
     getElements: function() { 
         return [this.x, this.y, this.z];
     },
+
+    // Check if two vectors are equal
+    isEqualTo: function(other) {
+    	if (this.x == other.x && this.y == other.y && this.z == other.z) {
+    		return true;
+    	}
+    	return false;
+    }
 
 	}; // End prototype
 

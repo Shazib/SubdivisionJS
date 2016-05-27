@@ -153,28 +153,28 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 
             // For every face (Generate face points)
             for (var f = 0; f < numberOfFacesOriginal; f++) {
-                //facePoints.push(this.faces[f].getFacePoint(this).clone());
-                var face = this.faces[f];
-               // console.log(face.vertexIndices);
-                var numberOfVerticesInFace = face.vertexIndices.length;
-                sumOfVertexPositions.clear();
+                facePoints.push(this.faces[f].getFacePoint(this).clone());
+              //   var face = this.faces[f];
+              //  // console.log(face.vertexIndices);
+              //   var numberOfVerticesInFace = face.vertexIndices.length;
+              //   sumOfVertexPositions.clear();
 
-                for (var vi = 0; vi < numberOfVerticesInFace; vi++)
-                {
-                    var vertexIndex = face.vertexIndices[vi];
-                    var vertexPos = this.vertices[vertexIndex].vec;
-                    sumOfVertexPositions.add(vertexPos);
-                }
-               // console.log(sumOfVertexPositions);
-                averageOfVertexPositions.overwriteWith
-                (
-                    sumOfVertexPositions
-                ).divideScalar
-                (
-                    numberOfVerticesInFace
-                );
-              //  console.log(averageOfVertexPositions)
-                facePoints.push(averageOfVertexPositions.clone());
+              //   for (var vi = 0; vi < numberOfVerticesInFace; vi++)
+              //   {
+              //       var vertexIndex = face.vertexIndices[vi];
+              //       var vertexPos = this.vertices[vertexIndex].vec;
+              //       sumOfVertexPositions.add(vertexPos);
+              //   }
+              //  // console.log(sumOfVertexPositions);
+              //   averageOfVertexPositions.overwriteWith
+              //   (
+              //       sumOfVertexPositions
+              //   ).divideScalar
+              //   (
+              //       numberOfVerticesInFace
+              //   );
+              // //  console.log(averageOfVertexPositions)
+              //   facePoints.push(averageOfVertexPositions.clone());
             } // End of for each face
           //  console.log(facePoints);
 
@@ -465,7 +465,12 @@ define ("mesh", ["vector", "vertex", "edge", "face"],
 
             }
             return vertices;
-        } 
+        },
+
+        // Doo Sabin subdivision method
+        doosabinSubdivide: function() {
+
+        }
 	} // End prototype
 
 	// Return reference to constructor

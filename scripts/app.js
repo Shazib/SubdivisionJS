@@ -1,14 +1,13 @@
 requirejs.config({
 	paths: {
   	"glm": "../bower_components/gl-matrix/dist/gl-matrix",
-  	"DAT": "../bower_components/dat-gui/build/dat.gui",
   	"domReady": "../bower_components/domready/ready.min",
   	"extensions": "extensions",
-  	"vector": "vector",
-  	"vertex": "vertex",
-  	"edge": "edge",
-  	"face": "face",
-  	"mesh": "mesh",
+  	"vector": "mesh/vector",
+  	"vertex": "mesh/vertex",
+  	"edge": "mesh/edge",
+  	"face": "mesh/face",
+  	"mesh": "mesh/mesh",
   	"models": "models",
   	"helper": "glhelper"
     }
@@ -17,328 +16,461 @@ requirejs.config({
 // globals objects
 var canvas;
 var gl;
+var originalTxt;
+var currentTxt;
+//var GUI = require('scripts/libs/dat.gui.min.js')
 
 // Model data buffers
 var modelVecBuffer;
 var modelVecColorBuffer;
 var modelVecIndexBuffer;
+var modelVecNormalBuffer
 var modelWireBuffer;
 var modelWireColorBuffer;
+var tex;
+
 // Model data counts
 var numElements;
 var numVectors;
+
 // Shader stuff
 var shaderProgram;
 var vertexPositionAttribute;
 var vertexColorAttribute;
+var vertexNormalAttribute
+
 // keeping track of things
-var subCount = 0;
 var modelRotationMatrix; 
 var mouseDown = false;
 var lastMouseX = null;
 var lastMouseY = null;
+var projection = 0.0;
+var projectionMatrix;
 
+// Model matrices
 var mvMatrix;
 var perspectiveMatrix;
 
-require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm'], 
-	function(domReady, Extension, Models, Mesh, Helper, glm) {
+// Helper function for DAT.GUI
+var Controller = function() {
+  this.x = false
+  this.y = false
+  this.z = false
+  this.numSubdivides = 0;
+  this.mesh = 1;
+  this.posUpdated = false;
+  this.wireframe = true;
+  this.subScheme = 0;
+}
+
+var control;
+var reloadBuffers = false;
+
+
+require(['domReady', 'extensions', 'models', 'mesh', 'helper', 'glm', 'vector'], 
+	function(domReady, Extension, Models, Mesh, Helper, glm, Vector) {
 
 	domReady(function() {
+      
+      // Get canvas
+      canvas = document.getElementById("glcanvas");
+
+      // Resize canvas
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+
+      window.addEventListener('resize', resizeCanvas, false);
+
+      // Add mouse listeners
+      canvas.onmousedown = handleMouseDown;
+      document.onmouseup = handleMouseUp;
+      document.onmousemove = handleMouseMove;
+      canvas.addEventListener('mousewheel', handleMouseScroll, false);
+      canvas.addEventListener('DOMMouseScroll', handleMouseScroll, false);
+
+      document.onscroll = function() {
+        console.log("Scrolling");
+      }
+
+      function resizeCanvas() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+
+      // Init DAT.GUI Controller.
+      control = new Controller();
+      var gui = new dat.GUI();
+
+      // Add properties to DAT.GUI
+      gui.add(control, 'x').name("Rotate X");
+      gui.add(control, 'y').name("Rotate Y");
+      gui.add(control, 'z').name("Rotate Z");
+      gui.add(control, "wireframe").name("Wireframe");
+      var subTracker = gui.add(control, 'numSubdivides', 0, 6).name("No. Subdivides").listen();
+      var meshTracker = gui.add(control, 'mesh', {Cube: 1, Cone: 2, Torus: 3, 
+        CubeTwo:4, Monkey: 5, Face: 6, Sphere: 7}).name("Mesh Type");
+      var subScheme = gui.add(control, 'subScheme', { 'Catmull-Clark': 0, 'Doo-Sabin':1}).name("Subd Scheme");
+
+      // Listeners to detect DAT.GUI changes
+      subScheme.onFinishChange(function(value) {
+        control.numSubdivides = 0;
+        reloadBuffers = true;
+      })
+      
+      subTracker.onFinishChange(function(value) {
+        reloadBuffers = true;
+      });
+      meshTracker.onFinishChange(function(value) {
+        control.numSubdivides = 0;
+        reloadBuffers = true;
+        control.posUpdated = false;
+      });
+
+      // Initialize the GL context
+      gl = Helper.initCanvas(canvas);
+
+      // Only continue if WebGL is available and working
+      if (gl) {
+        gl.clearColor(0.20, 0.25, 0.32, 1.0);  // Clear to black, fully opaque
+        gl.clearDepth(1.0);                 // Clear everything
+        gl.enable(gl.DEPTH_TEST);           // Enable depth testing
+        gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+
+        // Initialize the shaders; this is where all the lighting for the
+        // vertices and so forth is established.
+        initShaders();
+
+        // Here's where we call the routine that builds all the objects
+        // we'll be drawing.
+        initBuffers();
+
+        // Set up to draw the scene periodically.
+        setInterval(drawScene, 15);
+      }
+
+    // Init the shaders
+    function initShaders() {
+      // Get the shaders
+      var fragmentShader = Helper.loadShaderFromDOM(gl, "shader-fs");
+      var vertexShader = Helper.loadShaderFromDOM(gl, "shader-vs");
+
+      // Create the shader program
+      shaderProgram = gl.createProgram();
+      // Attach the shaders to the program
+      gl.attachShader(shaderProgram, vertexShader);
+      gl.attachShader(shaderProgram, fragmentShader);
+      // Link the program
+      gl.linkProgram(shaderProgram);
+      // Check for failure
+      if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+        alert("Unable to initialise the shader program");
+      }
+      // Tell Gl to use this program
+      gl.useProgram(shaderProgram);
+
+      // Enable shader attributes
+      vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+      gl.enableVertexAttribArray(vertexPositionAttribute);
+
+      vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+      gl.enableVertexAttribArray(vertexColorAttribute);
+
+      vertexNormalAttribute = gl.getUniformLocation(shaderProgram, "aVertexNormal")
+     
+      shaderProgram.ambientColorUniform = gl.getUniformLocation(shaderProgram, "uAmbientColor");
+      shaderProgram.lightingDirectionUniform = gl.getUniformLocation(shaderProgram, "uLightingDirection");
+      shaderProgram.directionalColorUniform = gl.getUniformLocation(shaderProgram, "uDirectionalColor");
+      shaderProgram.nMatrixUniform = gl.getUniformLocation(shaderProgram, "uNMatrix");
+      
+      shaderProgram.pointLightingLocationUniform = gl.getUniformLocation(shaderProgram, "uPointLightingLocation");
+      shaderProgram.pointLightingColorUniform = gl.getUniformLocation(shaderProgram, "uPointLightingColor");
 
 
-  canvas = document.getElementById("glcanvas");
-
-  initWebGL(canvas);      // Initialize the GL context
-
-  // Only continue if WebGL is available and working
-  if (gl) {
-    gl.clearColor(0.31, 0.58, 0.8, 1.0);  // Clear to black, fully opaque
-    gl.clearDepth(1.0);                 // Clear everything
-    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
-    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
-
-    // Initialize the shaders; this is where all the lighting for the
-    // vertices and so forth is established.
-    initShaders();
-
-    // Here's where we call the routine that builds all the objects
-    // we'll be drawing.
-    initBuffers(subCount);
-
-    // Set up to draw the scene periodically.
-    setInterval(drawScene, 15);
-  }
-
-
-// Init WebGL and the Canvas
-function initWebGL(canvas) {
-  gl = null;
-
-  try {
-    // Try to grab the standard context. Fallback to experimental
-    gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-  }
-  catch(e) {}
-
-  // Give up if no context
-  if (!gl) {
-    alert("Unable to initialise WebGL. Your browser may not support it");
-    gl = null;
-  }
-}
-
-// Get shaders from DOM
-function getShader(gl, id) {
-  var shaderScript, theSource, currentChild, shader;
-
-  // Find the element with the specified ID and read source
-  shaderScript = document.getElementById(id);
-
-  if (!shaderScript) {
-    return null;
-  }
-
-  theSource = "";
-  currentChild = shaderScript.firstChild;
-
-  while (currentChild) {
-    if (currentChild.nodeType == currentChild.TEXT_NODE) {
-      theSource += currentChild.textContent;
     }
 
-    currentChild = currentChild.nextSibling;
-  }
+    // Creating the buffers to contain the vertices
+    function initBuffers() {
 
-  // Create the shader by checking its type
-  if (shaderScript.type == "x-shader/x-fragment") {
-    shader = gl.createShader(gl.FRAGMENT_SHADER);
-  } else if (shaderScript.type == "x-shader/x-vertex") {
-    shader = gl.createShader(gl.VERTEX_SHADER);
-  } else {
-    // Unknown shader type
-    return null;
-  }
+      var meshCube, originalVerts;
+      if (control.mesh == 1){
+        meshCube = Models.cube();
+        originalVerts = meshCube.vertices.length;
+      } else if (control.mesh == 2) {
+        meshCube = Models.cone();
+        originalVerts = meshCube.vertices.length;
+      } else if (control.mesh == 3) {
+        meshCube = Models.torus();
+        originalVerts = meshCube.vertices.length;
+      } else if(control.mesh == 4) {
+        meshCube = Models.cubeTwo();
+        originalVerts = meshCube.vertices.length;
+      } else if (control.mesh == 5) {
+        meshCube = Models.monkey();
+        originalVerts = meshCube.vertices.length;
+      } else if (control.mesh == 6) {
+        meshCube = Models.face();
+        originalVerts = meshCube.vertices.length;
+      } else if (control.mesh == 7) {
+        meshCube = Models.sphere();
+        originalVerts = meshCube.vertices.length;
+      }
 
-  // Pass the source to the shader and compile it
-  gl.shaderSource(shader, theSource);
+      for (var i = 0; i < control.numSubdivides; i++) {
+        if (control.subScheme == 0) {
+          console.log("Scheme is catmull");
+          meshCube = meshCube.catmullSubdivide();
+        } else if (control.subScheme == 1) {
+          console.log("scheme is doosabin");
+          meshCube = meshCube.doosabinSubdivide();
+        }
+      }
 
-  // Compile the shader program
-  gl.compileShader(shader);
+      // vertices of the cube
+      var vertices = [];
+      vertices = meshCube.vectorArray();
+      console.log(vertices);
+      // get the index array
+      var vectorIndex = [];
+      vectorIndex = meshCube.elementArray();
 
-  // Check compilation
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    alert("An error occured compiling shaders: " + gl.getShaderInfoLog(shader));
-    return null;
-  }
-  return shader;
-}
+      // number of indexes
+      numElements = vectorIndex.length;
 
-// Init the shaders
-function initShaders() {
-  // Get the shaders
-  var fragmentShader = getShader(gl, "shader-fs");
-  var vertexShader = getShader(gl, "shader-vs");
+      // Wireframe edges
+      var wireframeVectors = [];
+      wireframeVectors = meshCube.wireframeVertices();
 
-  // var fragmentShader = Helper.loadShaderFromDOM(gl, "shader-fs");
-  // var vertexShader = Helper.loadShaderFromDOM(gl, "shader-vs");
+      // Number of vertices in wireframe
+      numVectors = wireframeVectors.length/3;
 
-  // Create the shader program
-  shaderProgram = gl.createProgram();
-  // Attach the shaders to the program
-  gl.attachShader(shaderProgram, vertexShader);
-  gl.attachShader(shaderProgram, fragmentShader);
-  // Link the program
-  gl.linkProgram(shaderProgram);
-  // Check for failure
-  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-    alert("Unable to initialise the shader program");
-  }
-  // Tell Gl to use this program
-  gl.useProgram(shaderProgram);
+      // Black 
+      var blackColor = [0.0, 0.0, 0.0, 1.0];
+      // Object color
+      var modelColor = [0.4,  0.8, 0.59, 1.0];
 
-  // Enable shader attributes
-  vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-  gl.enableVertexAttribArray(vertexPositionAttribute);
+      var wireframeColors = [];
+      for (var c = 0; c < numVectors; c++) {
+        wireframeColors.append(blackColor);
+      }
 
-  vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
-  gl.enableVertexAttribArray(vertexColorAttribute);
-}
+      var colors = [
+        [1.0,  1.0,  1.0,  1.0],    // Front face: white
+        [1.0,  0.0,  0.0,  1.0],    // Back face: red
+        [0.0,  1.0,  0.0,  1.0],    // Top face: green
+        [0.2,  0.6,  0.8],    // Bottom face: blue
+        [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
+        [1.0,  0.0,  1.0,  1.0]     // Left face: purple
+      ];
+      var modelColors = [];
 
-// Creating the buffers to contain the vertices
-function initBuffers(count) {
+      // for every face
+      var a =3;
+      for (var i = 0; i < meshCube.faces.length; i++) {
+        // For every vertex of the face
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);
+          modelColors.append(colors[a]);       
+      }
 
-  var meshCube = Models.cube();
+      // cubeVecBuffer
+      cubeVecBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-  for (var i = 0; i < count; i++) {
-    meshCube = meshCube.catmullSubdivide();
-  }
+      // Element Array
+      cubeVecIndexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(vectorIndex), gl.STATIC_DRAW);
 
-  // vertices of the cube
-  var vertices = [];
-  vertices = meshCube.vectorArray();
+      // Model colour buffer
+      cubeVecColorBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(modelColors), gl.STATIC_DRAW);
 
-  // get the index array
-  var vectorIndex = [];
-  vectorIndex = meshCube.elementArray();
+      // wireframe buffer
+      cubeWireBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeVectors), gl.STATIC_DRAW);
 
-  // number of indexes
-  numElements = vectorIndex.length;
+      // Wireframe colors buffer
+      cubeWireColorBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeColors), gl.STATIC_DRAW);
+    
 
-  // Wireframe edges
-  var wireframeVectors = [];
-  wireframeVectors = meshCube.wireframeVertices();
+      var vertexNormals = meshCube.normalArray();
+      // Bind lighting normals buffer
+      modelVecNormalBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, modelVecNormalBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
+      console.log(vertexNormals);
 
-  // Number of vertices in wireframe
-  numVectors = wireframeVectors.length/3;
-
-  // Black 
-  var blackColor = [0.0, 0.0, 0.0, 1.0];
-  // Object color
-  var modelColor = [0.4,  0.8, 0.59, 1.0];
-
-  var wireframeColors = [];
-  for (var c = 0; c < numVectors; c++) {
-    wireframeColors.append(blackColor);
-  }
-  var modelColors = [];
-  for (var c = 0; c < meshCube.vertices.length; c++) {
-    modelColors.append(modelColor);
-  }
-
-  // cubeVecBuffer
-  cubeVecBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-  // Element Array
-  cubeVecIndexBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);
-  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(vectorIndex), gl.STATIC_DRAW);
-
-  // Model colour buffer
-  cubeVecColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(modelColors), gl.STATIC_DRAW);
-
-  // wireframe buffer
-  cubeWireBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeVectors), gl.STATIC_DRAW);
-
-  // Wireframe colors buffer
-  cubeWireColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireframeColors), gl.STATIC_DRAW);
-
-
-  // console.log(numElements);
-  // console.log(meshCube.vertices.length);
-  // console.log(numVectors);
-  // console.log(meshCube.vectorArray());
-}
-
-
-var cubeRotation = 0;
-var lastCubeUpdateTime = 0;
-var firstRun = false;
-// Drawing the scene
-function drawScene() {
-
-
-  document.getElementById("sub").onclick = function() {
-    subCount++;
-    initBuffers(subCount);
-  }
-
-  document.getElementById("back").onclick = function() {
-    subCount--;
-    if (subCount < 0) {
-      subCount = 0
+      // Set up the data
+      document.getElementById("originalTxt").innerHTML = "Original Vertices: " + originalVerts
+      document.getElementById("currentTxt").innerHTML = "Current Vertices: " + meshCube.vertices.length;
     }
-    initBuffers(subCount);
-  }
 
-  // get HTML Stuff
-  var rangeVal = document.getElementById("myRange").value;
-  var x = document.getElementById("x").checked;
-  var y = document.getElementById("y").checked;
-  var z = document.getElementById("z").checked;
+    var cubeRotation = 0;
+    var lastCubeUpdateTime = 0;
+    var firstRun = false;
+    modelRotationMatrix = glm.mat4.create();
+    glm.mat4.identity(modelRotationMatrix);
+    projectionMatrix = glm.mat4.create()
+    glm.mat4.identity(projectionMatrix);
+    // Drawing the scene
+    function drawScene() {
 
-  var xVal, yVal, xVal = 0;
-  if (x) {xVal = 1;} else {xVal = 0;}
-  if (y) {yVal = 1;} else {yVal = 0;}
-  if (z) {zVal = 1;} else {zVal = 0;}
+      if (reloadBuffers) {
+        initBuffers();
+        reloadBuffers = false;
+        firstLoad = false;
+      }
 
-  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+      gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
 
-  perspectiveMatrix = glm.mat4.create();
-  glm.mat4.perspective(perspectiveMatrix, Math.degToRad(45.0), canvas.width/canvas.height, 0.1, 100.0);
+      perspectiveMatrix = glm.mat4.create();
+      glm.mat4.perspective(perspectiveMatrix, Math.degToRad(45.0), canvas.width/canvas.height, 0.1, 100.0);
 
-  //mvMatrix = Matrix.I(4); // Load up an identity matrix into the model view matrix
+      gl.viewport(0, 0, canvas.width, canvas.height)
 
-  // Perform a translation on the MV matrix
-  // MV * Matrix.Translation(vector).exsure4x4
-  if (!firstRun) {
-    //console.log(perspectiveMatrix);
-    mvMatrix = glm.mat4.create();
-    glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, -0.0, -6.0]);
-    glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(45), [1, 1, 1]);
+      if (!firstRun) {
+        mvMatrix = glm.mat4.create();
+        glm.mat4.translate(mvMatrix, mvMatrix, [-0.0, 0.0, -6.0]);
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(140), [1, 0, 1]);
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(-50), [0, 1, 0]);
+        firstRun = true
+      }
+      if (!control.posUpdated){
+        if (control.mesh == 4) {
+          glm.mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, -3.0]);
+        }
+        control.posUpdated = true;
+      }
 
-    firstRun = true
+      if (control.x) {
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(3), [1, 0, 0]);
+      }
+      if (control.y) {
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(3), [0, 1, 0]);
+      }
+      if (control.z) {
+        glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(3), [0, 0, 1]);
+      }
+      // Rotate the view
+      glm.mat4.multiply(mvMatrix, mvMatrix, modelRotationMatrix);
 
-  }
+      setMatrixUniforms();
 
-  if (x || y || z) {
-   // mvRotate(rangeVal, [xVal, yVal, zVal]);
-    glm.mat4.rotate(mvMatrix, mvMatrix, Math.degToRad(rangeVal), [xVal, yVal, zVal]);
+      /* Lighting */
+      // Bind vertex normals to shader attribute
+      gl.bindBuffer(gl.ARRAY_BUFFER, modelVecNormalBuffer);
+      gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(vertexNormalAttribute)
 
-  }
+      gl.uniform3f(
+        shaderProgram.ambientColorUniform,
+        1.0, 
+        0.5, 
+        0.5 
+      );
 
-  modelRotationMatrix = glm.mat4.create();
+      gl.uniform3f(shaderProgram.pointLightingLocationUniform, -3.0, -3.0, -15.0);
+      gl.uniform3f(shaderProgram.pointLightingColorUniform, 1, 0, 0);
 
-  setMatrixUniforms();
+      /* Drawing the shape */
+      // Bind vectors
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
+      gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(vertexPositionAttribute)
 
-  // Bind vectors
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecBuffer);
-  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(vertexPositionAttribute)
-  // Bind colors
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);
-  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(vertexColorAttribute)
-  // Bind element array
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);
-  // Draw
-  gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_SHORT, 0);
+      // Bind colors
+      gl.bindBuffer(gl.ARRAY_BUFFER, cubeVecColorBuffer);
+      gl.vertexAttribPointer(vertexColorAttribute, 3, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(vertexColorAttribute)
 
-  // Bind edge vectors
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
-  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(vertexPositionAttribute)
-  // Bind colors
-  gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
-  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(vertexColorAttribute)
-  // Draw lines
-  gl.drawArrays(gl.LINES, 0, numVectors)
+      // Bind element array
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVecIndexBuffer);
+      // Draw
+      gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_SHORT, 0);
 
-}
+      /* Drawing the wireframe */
+      if (control.wireframe) {
+        // Bind edge vectors
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireBuffer);
+        gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vertexPositionAttribute)
+        // Bind colors
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeWireColorBuffer);
+        gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vertexColorAttribute)
+        // Draw lines
+        gl.drawArrays(gl.LINES, 0, numVectors)
+      }
 
-function setMatrixUniforms() {
-  // set the perspective matrix
-  var pUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
-  gl.uniformMatrix4fv(pUniform, false, new Float32Array(perspectiveMatrix));
+    }
 
-  // set the model view matrix
-  var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
-  gl.uniformMatrix4fv(mvUniform, false, new Float32Array(mvMatrix));
-}
+    function setMatrixUniforms() {
+      // set the perspective matrix
+      var pUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+      gl.uniformMatrix4fv(pUniform, false, new Float32Array(perspectiveMatrix));
 
+      // set the model view matrix
+      var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+      gl.uniformMatrix4fv(mvUniform, false, new Float32Array(mvMatrix));
 
+      // Normal matrix
+      var normalMatrix = glm.mat3.create();
+      //glm.mat4.toInverseMat3(mvMatrix, normalMatrix);
+      glm.mat3.fromMat4(normalMatrix, mvMatrix);
+      glm.mat3.invert(normalMatrix, normalMatrix);
+      glm.mat3.transpose(normalMatrix, normalMatrix);
+      gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
+    }
 
-});
+    // Set the mouse down when pressed and set the x,y coords
+    function handleMouseDown(event) {
+      mouseDown = true;
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+      console.log("down")
+    }
 
+    // Handle mouse up
+    function handleMouseUp(event) {
+      mouseDown = false
+      glm.mat4.identity(modelRotationMatrix)
+    }
 
+    // Moving the model when mouse moves
+    function handleMouseMove(event) {
+      // Check left button pressed
+      if (!mouseDown) {
+        return;
+      }
+      var rot = 0;
 
+      rot = (Math.PI/5000) * (event.clientX - lastMouseX);
+      glm.mat4.rotateY(modelRotationMatrix, modelRotationMatrix, rot);
+
+      rot = (Math.PI/5000) * (event.clientY - lastMouseY);
+      glm.mat4.rotateX(modelRotationMatrix, modelRotationMatrix, rot);
+
+      lastMouseX = event.clientX;
+      lastMouseY = event.clientY;
+    }
+
+    function handleMouseScroll(event) {
+      // Stop keeping track
+      event.preventDefault();
+      // Get value
+      var delta = event.detail? event.detail/(-3) : event.wheelDelta/(120); //Different web browsers
+      // Calculate projection value
+      projection -= (0.15*delta);
+      // Set projection limit
+      if (projection < 0.03) {
+        projection = 0.03
+      }
+    }
+  });
 });

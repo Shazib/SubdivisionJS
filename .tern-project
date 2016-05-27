@@ -1,8 +1,10 @@
 {
-    "libs": ["webgl", "browser"],
+    "libs": ["webgl"],
 
     "loadEagerly": [
-        "*/**.js"
+        "scripts/app.js",
+        "*/**.js",
+        "scripts/mesh/*.js"
     ],
     "plugins": {
         "requirejs": {

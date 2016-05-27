@@ -1,0 +1,27 @@
+html, body {
+    height:100%;
+    margin:0;
+    width:100%;
+    overflow:hidden;
+}
+
+#glcanvas {
+    width: 100%;
+    height: 100%;
+}
+
+#btmTxt {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    text-align: center;
+    color: white;
+    font-family:"Play" ;
+    text-shadow: 1px 1px #808080;
+}
+
+@font-face {
+    font-family: Play;
+    src: url(Play-Regular.ttf);
+
+}..
