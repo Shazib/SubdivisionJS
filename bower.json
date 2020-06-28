@@ -1,5 +1,5 @@
 {
-  "name": "SubdivisionJS",
+  "name": "subdivisionjs",
   "version": "0.1",
   "authors": [
     "Shazib Hussain <me@shazib.com>"
@@ -24,6 +24,7 @@
     "tests"
   ],
   "dependencies": {
+    "domready": "~1.0.0",
     "gl-matrix": "~2.2.1",
     "requirejs": "~2.1.18"
   }
